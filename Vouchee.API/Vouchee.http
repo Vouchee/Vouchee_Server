@@ -1,0 +1,6 @@
+@Vouchee_HostAddress = http://localhost:5123
+
+GET {{Vouchee_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
