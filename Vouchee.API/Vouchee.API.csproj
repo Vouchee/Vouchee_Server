@@ -7,13 +7,13 @@
         <RootNamespace>Vouchee</RootNamespace>
     </PropertyGroup>
 
+    <PropertyGroup Condition=" '$(RunConfiguration)' == 'https' " />
+    <PropertyGroup Condition=" '$(RunConfiguration)' == 'http' " />
     <ItemGroup>
-        <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.2"/>
-        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0"/>
+        <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.2" />
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
     </ItemGroup>
-
     <ItemGroup>
-      <ProjectReference Include="..\Vouchee.Repository\Vouchee.Repository.csproj" />
+      <ProjectReference Include="..\Vouchee.Infrastructure\Vouchee.Infrastructure.csproj" />
     </ItemGroup>
-
 </Project>
