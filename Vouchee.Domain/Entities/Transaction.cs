@@ -5,9 +5,12 @@ namespace Vouchee.Domain.Entities;
 
 public class Transaction : BaseAuditableEntity<Guid>
 {
-    public PaymentMethod PaymentMethod { get; set; }
-    public double Amount { get; set; }
-    public TransactionStatusEnum TransactionStatus { get; set; }
+    public String TransactionDetail { get; set; }
+    public DateTime TransactionDateTime { get; } = DateTime.Now;
+    public TransactionType TransactionType { get; set; }
+    public TransactionStatusEnum TransactionStatusEnum { get; set; }
+    public decimal Amount { get; set; }
     
-    public Guid ReservationId { get; set; }
+    public Guid UserId { get; set; }
+    public User? User { get; set; }
 }
