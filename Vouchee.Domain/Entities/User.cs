@@ -10,7 +10,6 @@ public class User : IdentityUser<Guid>
     public UserStatusEnum UserStatusEnum { get; set; }
 
     public Shop? Shop { get; set; }
-    public Guid? WalletId { get; set; }
     public Wallet? Wallet { get; set; }
 
     public ICollection<Notify> Notifies { get; set; } = new List<Notify>();

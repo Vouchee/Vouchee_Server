@@ -35,7 +35,7 @@ public class VoucheeContext : IdentityDbContext<User, Role,
     {
         base.OnConfiguring(optionsBuilder);
         if (optionsBuilder.IsConfigured) return;
-        optionsBuilder.UseSqlServer(DataAccessHelper.GetConnectionString());
+        optionsBuilder.UseSqlServer("Server=(local);uid=sa;pwd=12345;database=Vouchee;TrustServerCertificate=True");
         if (ApplicationEnvironment.IsDevelopment())
             optionsBuilder.EnableSensitiveDataLogging()
                 .EnableDetailedErrors()

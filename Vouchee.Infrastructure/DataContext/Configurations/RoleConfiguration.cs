@@ -9,6 +9,7 @@ public class RoleConfiguration : IEntityTypeConfiguration<Role>
     public void Configure(EntityTypeBuilder<Role> builder)
     {
         builder.HasMany(r => r.Roles)
-            .WithOne(r => r.Role);
+            .WithOne(r => r.Role)
+            .HasForeignKey(u => u.RoleId);
     }
 }

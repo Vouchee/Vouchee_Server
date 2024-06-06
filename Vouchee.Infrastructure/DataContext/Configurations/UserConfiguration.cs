@@ -9,12 +9,16 @@ public class UserConfiguration: IEntityTypeConfiguration<User>
     public void Configure(EntityTypeBuilder<User> builder)
     {
         builder.HasMany(u => u.Roles)
-            .WithOne(u => u.User);
+            .WithOne(u => u.User)
+            .HasForeignKey(u => u.UserId);
 
         builder.HasOne(u => u.Wallet)
-            .WithOne(u => u.User);
+            .WithOne(u => u.User)
+            .HasForeignKey<Wallet>(u => u.UserId)
+            .IsRequired();
 
         builder.HasMany(u => u.UserProducts)
-            .WithOne(u => u.Owner);
+            .WithOne(u => u.Owner)
+            .HasForeignKey(u => u.OwnerId);
     }
 }
