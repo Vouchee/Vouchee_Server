@@ -8,7 +8,7 @@ using Vouchee.Infrastructure.DataAccessObjects.Interfaces;
 
 namespace Vouchee.Infrastructure.Repositories.Interface
 {
-    public interface IBaseRepository<TEntity> : IBaseDAO<TEntity> where TEntity : class, IEntity
+    public interface IBaseRepository<TEntity> : IBaseDAO<TEntity> where TEntity : class
     {
     }
 }

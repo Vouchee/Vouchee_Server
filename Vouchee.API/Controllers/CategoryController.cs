@@ -1,15 +1,14 @@
 ﻿using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
-using Vouchee.Application.FilterModels;
-using Vouchee.Application.RequestModels.Helpers;
-using Vouchee.Application.Services.Category;
-using Vouchee.Application.WebRequests.Category;
-using Vouchee.Application.WebResponse.Helpers;
-using Vouchee.Application.WebResponse;
+using Vouchee.Infrastructure.FilterModels;
+using Vouchee.Infrastructure.RequestModels.Category;
+using Vouchee.Infrastructure.RequestModels.Helpers;
+using Vouchee.Infrastructure.Services.Interface;
+using Vouchee.Infrastructure.WebResponse;
+using Vouchee.Infrastructure.WebResponse.Helpers;
 
 namespace Vouchee.Controllers
 {
-	[EnableCors("AllowAnyOrigins")]
 	[Route("api/[controller]")]
 	[ApiController]
 	public class CategoryController : ControllerBase
@@ -20,42 +19,35 @@ namespace Vouchee.Controllers
 		{
 			_service = service;
 		}
-		[HttpGet("CategoryStatistics")]
-		public ResponseResult<ICollection<CategoryReponse>> CategoryStatistics()
-		{
-			return _service.CategoryStatistics();
-		}
+
 		[HttpGet("GetCategory/{id}")]
-		public ResponseResult<CategoryReponse> GetCategory(int id)
+		public async Task<ResponseResult<CategoryResponse>> GetCategoryAsync(Guid id)
 		{
-			return _service.GetCategory(id);
+			return await _service.GetCategory(id);
 		}
 
 		[HttpGet("GetListCategory")]
-		public DynamicModelResponse.DynamicModelsResponse<CategoryReponse> GetListCategory([FromQuery] CategoryFilter filter, [FromQuery] PagingRequest paging)
+		public async Task<DynamicModelResponse.DynamicModelsResponse<CategoryResponse>> GetListCategory([FromQuery] CategoryFilter filter, [FromQuery] PagingRequest paging)
 		{
-			return _service.GetCategorys(filter, paging);
+			return await _service.GetCategorys(filter, paging);
 		}
 
 		[HttpPost("CreateCategory")]
-		//[Authorize(Policy = "RequireAdminRole")]
-		public ResponseResult<CategoryReponse> CreateCategory([FromBody] CreateCategoryRequest request)
+		public async Task<ResponseResult<CategoryResponse>> CreateCategory([FromBody] CreateCategoryRequest request)
 		{
-			return _service.CreateCategory(request);
+			return await _service.CreateCategory(request);
 		}
 
 		[HttpPut("UpdateCategory/{id}")]
-		//[Authorize(Policy = "RequireAdminRole")]
-		public ResponseResult<CategoryReponse> UpdateCategory([FromBody] UpdateCategoryRequest request, int id)
+		public async Task<ResponseResult<CategoryResponse>> UpdateCategory([FromBody] UpdateCategoryRequest request, Guid id)
 		{
-			return _service.UpdateCategory(request, id);
+			return await _service.UpdateCategory(request, id);
 		}
 
 		[HttpDelete("DeleteCategory/{id}")]
-		//[Authorize(Policy = "RequireAdminRole")]
-		public ResponseResult<CategoryReponse> DeleteCategory(int id)
+		public async Task<ResponseResult<CategoryResponse>> DeleteCategory(Guid id)
 		{
-			return _service.DeleteCategory(id);
+			return await _service.DeleteCategory(id);
 		}
 	}
 }

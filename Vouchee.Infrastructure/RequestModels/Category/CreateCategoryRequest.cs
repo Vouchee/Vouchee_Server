@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Vouchee.Domain.Entities;
 
-namespace Vouchee.Infrastructure.WebRequests.Category
+namespace Vouchee.Infrastructure.RequestModels.Category
 {
 	public class CreateCategoryRequest
 	{

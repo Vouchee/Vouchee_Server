@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Vouchee.Domain.Entities;
 
 namespace Vouchee.Infrastructure.DataAccessObjects.Interfaces
 {
-	internal class IShopDAO
+	public interface IShopDAO : IBaseDAO<Shop>
 	{
 	}
 }

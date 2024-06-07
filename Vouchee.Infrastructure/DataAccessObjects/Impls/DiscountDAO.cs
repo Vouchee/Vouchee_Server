@@ -3,10 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Vouchee.Domain.Entities;
+using Vouchee.Infrastructure.DataAccessObjects.Interfaces;
+using Vouchee.Infrastructure.DataContext;
 
 namespace Vouchee.Infrastructure.DataAccessObjects.Impls
 {
-	internal class DiscountDAO
+	public class DiscountDAO : BaseDAO<Discount>, IDiscountDAO
 	{
+		public DiscountDAO(VoucheeContext context) : base(context)
+		{
+
+		}
 	}
 }

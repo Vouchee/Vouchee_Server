@@ -19,7 +19,7 @@ namespace Vouchee.Infrastructure.DataAccessObjects.Impls
         private readonly VoucheeContext _context;
         private DbSet<TEntity> Table { get; set; }
 
-        private BaseDAO(VoucheeContext context)
+        public BaseDAO(VoucheeContext context)
         {
             _context = context;
             Table = context.Set<TEntity>();
@@ -99,12 +99,12 @@ namespace Vouchee.Infrastructure.DataAccessObjects.Impls
             return await HardDeleteAsync(key);
         }
 
-        public async Task<Guid> InsertAsync(TEntity entity)
+        public async Task<TEntity> InsertAsync(TEntity entity)
         {
             await Table.AddAsync(entity);
             if (await _context.SaveChangesAsync() > 0)
-                return (Guid) entity.GetType().GetProperty("Id").GetValue(entity, null);
-            return Guid.Empty;
+                return entity;
+            return null;
 		}
 
         public async Task<int> InsertRangeAsync(IQueryable<TEntity> entities)
@@ -113,15 +113,16 @@ namespace Vouchee.Infrastructure.DataAccessObjects.Impls
             return await _context.SaveChangesAsync();
         }
 
-        public async Task<int> UpdateByIdAsync(TEntity entity, object id)
+        public async Task<TEntity> UpdateByIdAsync(TEntity entity, object id)
         {
             var existingEntity = await Table.FindAsync(id);
             if (existingEntity != null)
             {
                 _context.Entry(existingEntity).CurrentValues.SetValues(entity);
-                return await _context.SaveChangesAsync();
+                if (await _context.SaveChangesAsync() > 0)
+                    return entity;
             }
-            return 0;
+            return null;
         }
 
         public async Task<int> UpdateRangeAsync(IQueryable<TEntity> entities)

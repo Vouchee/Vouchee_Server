@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Vouchee.Infrastructure.WebRequests.Category
+namespace Vouchee.Infrastructure.RequestModels.Category
 {
 	public class UpdateCategoryRequest
 	{

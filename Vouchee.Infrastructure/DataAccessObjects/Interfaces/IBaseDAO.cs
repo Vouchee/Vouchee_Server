@@ -21,9 +21,9 @@ namespace Vouchee.Infrastructure.DataAccessObjects.Interfaces
         Task<int> HardDeleteAsync(object key);
         Task<int> DeleteAsync(TEntity entity);
         Task<int> HardDeleteIdAsync(object key);
-        Task<Guid> InsertAsync(TEntity entity); // Modified to return ID
+        Task<TEntity> InsertAsync(TEntity entity); // Modified to return ID
         Task<int> InsertRangeAsync(IQueryable<TEntity> entities);
-        Task<int> UpdateByIdAsync(TEntity entity, object id);
+        Task<TEntity> UpdateByIdAsync(TEntity entity, object id);
         Task<int> UpdateRangeAsync(IQueryable<TEntity> entities);
         Task<bool> AnyAsync(Func<TEntity, bool> predicate);
         Task<int> CountAsync(Func<TEntity, bool> predicate);

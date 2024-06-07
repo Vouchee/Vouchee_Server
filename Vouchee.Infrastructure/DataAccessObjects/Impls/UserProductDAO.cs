@@ -3,10 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Vouchee.Domain.Entities;
+using Vouchee.Infrastructure.DataAccessObjects.Interfaces;
+using Vouchee.Infrastructure.DataContext;
 
 namespace Vouchee.Infrastructure.DataAccessObjects.Impls
 {
-	internal class UserProductDAO
+	public class UserProductDAO : BaseDAO<UserProduct>, IUserProductDAO
 	{
+		public UserProductDAO(VoucheeContext context) : base(context)
+		{
+		}
 	}
 }

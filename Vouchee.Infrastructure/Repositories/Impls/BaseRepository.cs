@@ -9,7 +9,7 @@ using Vouchee.Infrastructure.DataAccessObjects.Interfaces;
 
 namespace Vouchee.Infrastructure.Repositories.Impls
 {
-    public class BaseRepository<TEntity> : IBaseDAO<TEntity> where TEntity : class, IEntity
+    public class BaseRepository<TEntity> : IBaseDAO<TEntity> where TEntity : class
     {
         public async Task<bool> AnyAsync(Func<TEntity, bool> predicate)
         {
@@ -167,7 +167,7 @@ namespace Vouchee.Infrastructure.Repositories.Impls
             }
         }
 
-        public async Task<Guid> InsertAsync(TEntity entity)
+        public async Task<TEntity> InsertAsync(TEntity entity)
         {
             try
             {
@@ -191,7 +191,7 @@ namespace Vouchee.Infrastructure.Repositories.Impls
             }
         }
 
-        public async Task<int> UpdateByIdAsync(TEntity entity, object id)
+        public async Task<TEntity> UpdateByIdAsync(TEntity entity, object id)
         {
             try
             {

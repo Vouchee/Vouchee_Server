@@ -2,6 +2,7 @@ using System.Reflection;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Identity.Client;
 using Vouchee.Application.Common.Interfaces;
 using Vouchee.Common.Constants;
@@ -35,8 +36,14 @@ public class VoucheeContext : IdentityDbContext<User, Role,
     {
         base.OnConfiguring(optionsBuilder);
         if (optionsBuilder.IsConfigured) return;
-        optionsBuilder.UseSqlServer("Server=(local);uid=sa;pwd=12345;database=Vouchee;TrustServerCertificate=True");
-        if (ApplicationEnvironment.IsDevelopment())
+		optionsBuilder.UseLazyLoadingProxies();
+        optionsBuilder.UseChangeTrackingProxies();
+		var builder = new ConfigurationBuilder()
+			   .SetBasePath(Directory.GetCurrentDirectory())
+			   .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
+		IConfigurationRoot configuration = builder.Build();
+		optionsBuilder.UseSqlServer(configuration.GetConnectionString("Vouchee"));
+		if (ApplicationEnvironment.IsDevelopment())
             optionsBuilder.EnableSensitiveDataLogging()
                 .EnableDetailedErrors()
                 .LogTo(Console.WriteLine);
