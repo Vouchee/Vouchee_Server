@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34902.65
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vouchee.Data", "Vounchee.Data\Vouchee.Data.csproj", "{35258103-1633-4D84-8071-5782DB3362BC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vouchee.Data", "Vouchee.Data\Vouchee.Data.csproj", "{35258103-1633-4D84-8071-5782DB3362BC}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vouchee.Business", "Vouchee.Business\Vouchee.Business.csproj", "{B6F95191-A22D-42A9-BF1B-CF910B646282}"
 EndProject
