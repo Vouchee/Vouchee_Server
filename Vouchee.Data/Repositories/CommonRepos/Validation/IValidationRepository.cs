@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Vounchee.Data.Repositories.CommonRepos.Validation
+namespace Vouchee.Data.Repositories.CommonRepos.Validation
 {
     public interface IValidationRepository
     {

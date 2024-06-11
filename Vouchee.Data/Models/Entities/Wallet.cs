@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Vounchee.Data.Models.Entities
+namespace Vouchee.Data.Models.Entities
 {
     [Table("Wallet")]
     public class Wallet

@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
-namespace Vounchee.Data.Models.Entities
+namespace Vouchee.Data.Models.Entities
 {
     [Table("Product")]
     public class Product

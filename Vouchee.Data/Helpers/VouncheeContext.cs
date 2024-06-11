@@ -5,18 +5,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Vounchee.Data.Models.Entities;
+using Vouchee.Data.Models.Entities;
 
-namespace Vounchee.Data.Helpers
+namespace Vouchee.Data.Helpers
 {
-    public class VouncheeContext : DbContext
+    public class VoucheeContext : DbContext
     {
-        public VouncheeContext() 
+        public VoucheeContext() 
         { 
         
         }
 
-        public VouncheeContext(DbContextOptions<VouncheeContext> options) : base(options) 
+        public VoucheeContext(DbContextOptions<VoucheeContext> options) : base(options) 
         { 
         
         }
@@ -46,7 +46,7 @@ namespace Vounchee.Data.Helpers
                             .SetBasePath(Directory.GetCurrentDirectory())
                             .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
                 IConfigurationRoot configuration = builder.Build();
-                optionsBuilder.UseSqlServer(configuration.GetConnectionString("VouncheeDB"));
+                optionsBuilder.UseSqlServer(configuration.GetConnectionString("VoucheeDB"));
             }
         }
 

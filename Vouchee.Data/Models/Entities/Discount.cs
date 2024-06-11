@@ -5,9 +5,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Vounchee.Data.Models.Constants.Enum;
+using Vouchee.Data.Models.Constants.Enum;
 
-namespace Vounchee.Data.Models.Entities
+namespace Vouchee.Data.Models.Entities
 {
     [Table("Discount")]
     public partial class Discount

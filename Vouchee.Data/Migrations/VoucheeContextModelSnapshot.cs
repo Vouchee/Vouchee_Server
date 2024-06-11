@@ -4,14 +4,14 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Vounchee.Data.Helpers;
+using Vouchee.Data.Helpers;
 
 #nullable disable
 
 namespace Vouchee.Data.Migrations
 {
-    [DbContext(typeof(VouncheeContext))]
-    partial class VouncheeContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(VoucheeContext))]
+    partial class VoucheeContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
@@ -100,7 +100,7 @@ namespace Vouchee.Data.Migrations
                     b.ToTable("RoleUser");
                 });
 
-            modelBuilder.Entity("Vounchee.Data.Models.Entities.Category", b =>
+            modelBuilder.Entity("Vouchee.Data.Models.Entities.Category", b =>
                 {
                     b.Property<Guid>("CategoryId")
                         .ValueGeneratedOnAdd()
@@ -121,7 +121,7 @@ namespace Vouchee.Data.Migrations
                     b.ToTable("Category");
                 });
 
-            modelBuilder.Entity("Vounchee.Data.Models.Entities.Comment", b =>
+            modelBuilder.Entity("Vouchee.Data.Models.Entities.Comment", b =>
                 {
                     b.Property<Guid>("CommentId")
                         .ValueGeneratedOnAdd()
@@ -163,7 +163,7 @@ namespace Vouchee.Data.Migrations
                     b.ToTable("Comment");
                 });
 
-            modelBuilder.Entity("Vounchee.Data.Models.Entities.Discount", b =>
+            modelBuilder.Entity("Vouchee.Data.Models.Entities.Discount", b =>
                 {
                     b.Property<Guid>("DiscountId")
                         .ValueGeneratedOnAdd()
@@ -218,7 +218,7 @@ namespace Vouchee.Data.Migrations
                     b.ToTable("Discount");
                 });
 
-            modelBuilder.Entity("Vounchee.Data.Models.Entities.Image", b =>
+            modelBuilder.Entity("Vouchee.Data.Models.Entities.Image", b =>
                 {
                     b.Property<Guid>("ImageId")
                         .ValueGeneratedOnAdd()
@@ -242,7 +242,7 @@ namespace Vouchee.Data.Migrations
                     b.ToTable("Image");
                 });
 
-            modelBuilder.Entity("Vounchee.Data.Models.Entities.Location", b =>
+            modelBuilder.Entity("Vouchee.Data.Models.Entities.Location", b =>
                 {
                     b.Property<Guid>("LocationId")
                         .ValueGeneratedOnAdd()
@@ -295,7 +295,7 @@ namespace Vouchee.Data.Migrations
                     b.ToTable("Location");
                 });
 
-            modelBuilder.Entity("Vounchee.Data.Models.Entities.Notify", b =>
+            modelBuilder.Entity("Vouchee.Data.Models.Entities.Notify", b =>
                 {
                     b.Property<Guid>("NotifyId")
                         .ValueGeneratedOnAdd()
@@ -333,7 +333,7 @@ namespace Vouchee.Data.Migrations
                     b.ToTable("Notify");
                 });
 
-            modelBuilder.Entity("Vounchee.Data.Models.Entities.Product", b =>
+            modelBuilder.Entity("Vouchee.Data.Models.Entities.Product", b =>
                 {
                     b.Property<Guid>("ProductId")
                         .ValueGeneratedOnAdd()
@@ -395,7 +395,7 @@ namespace Vouchee.Data.Migrations
                     b.ToTable("Product");
                 });
 
-            modelBuilder.Entity("Vounchee.Data.Models.Entities.Promotion", b =>
+            modelBuilder.Entity("Vouchee.Data.Models.Entities.Promotion", b =>
                 {
                     b.Property<Guid>("PromotionId")
                         .ValueGeneratedOnAdd()
@@ -445,7 +445,7 @@ namespace Vouchee.Data.Migrations
                     b.ToTable("Promotion");
                 });
 
-            modelBuilder.Entity("Vounchee.Data.Models.Entities.Rating", b =>
+            modelBuilder.Entity("Vouchee.Data.Models.Entities.Rating", b =>
                 {
                     b.Property<Guid>("RatingId")
                         .ValueGeneratedOnAdd()
@@ -484,7 +484,7 @@ namespace Vouchee.Data.Migrations
                     b.ToTable("Rating");
                 });
 
-            modelBuilder.Entity("Vounchee.Data.Models.Entities.Role", b =>
+            modelBuilder.Entity("Vouchee.Data.Models.Entities.Role", b =>
                 {
                     b.Property<Guid>("RoleId")
                         .ValueGeneratedOnAdd()
@@ -500,7 +500,7 @@ namespace Vouchee.Data.Migrations
                     b.ToTable("Roles");
                 });
 
-            modelBuilder.Entity("Vounchee.Data.Models.Entities.Shop", b =>
+            modelBuilder.Entity("Vouchee.Data.Models.Entities.Shop", b =>
                 {
                     b.Property<Guid>("ShopId")
                         .ValueGeneratedOnAdd()
@@ -552,7 +552,7 @@ namespace Vouchee.Data.Migrations
                     b.ToTable("Shop");
                 });
 
-            modelBuilder.Entity("Vounchee.Data.Models.Entities.Tag", b =>
+            modelBuilder.Entity("Vouchee.Data.Models.Entities.Tag", b =>
                 {
                     b.Property<Guid>("TagId")
                         .ValueGeneratedOnAdd()
@@ -565,10 +565,10 @@ namespace Vouchee.Data.Migrations
 
                     b.HasKey("TagId");
 
-                    b.ToTable("Tags");
+                    b.ToTable("Tag");
                 });
 
-            modelBuilder.Entity("Vounchee.Data.Models.Entities.Transaction", b =>
+            modelBuilder.Entity("Vouchee.Data.Models.Entities.Transaction", b =>
                 {
                     b.Property<Guid>("TransactionId")
                         .ValueGeneratedOnAdd()
@@ -601,7 +601,7 @@ namespace Vouchee.Data.Migrations
                     b.ToTable("Transaction");
                 });
 
-            modelBuilder.Entity("Vounchee.Data.Models.Entities.User", b =>
+            modelBuilder.Entity("Vouchee.Data.Models.Entities.User", b =>
                 {
                     b.Property<Guid>("UserId")
                         .ValueGeneratedOnAdd()
@@ -629,7 +629,7 @@ namespace Vouchee.Data.Migrations
                     b.ToTable("User");
                 });
 
-            modelBuilder.Entity("Vounchee.Data.Models.Entities.Wallet", b =>
+            modelBuilder.Entity("Vouchee.Data.Models.Entities.Wallet", b =>
                 {
                     b.Property<Guid>("WalletId")
                         .ValueGeneratedOnAdd()
@@ -663,13 +663,13 @@ namespace Vouchee.Data.Migrations
 
             modelBuilder.Entity("CategoryProduct", b =>
                 {
-                    b.HasOne("Vounchee.Data.Models.Entities.Category", null)
+                    b.HasOne("Vouchee.Data.Models.Entities.Category", null)
                         .WithMany()
                         .HasForeignKey("CategoriesCategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Vounchee.Data.Models.Entities.Product", null)
+                    b.HasOne("Vouchee.Data.Models.Entities.Product", null)
                         .WithMany()
                         .HasForeignKey("ProductsProductId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -678,13 +678,13 @@ namespace Vouchee.Data.Migrations
 
             modelBuilder.Entity("ProductTag", b =>
                 {
-                    b.HasOne("Vounchee.Data.Models.Entities.Product", null)
+                    b.HasOne("Vouchee.Data.Models.Entities.Product", null)
                         .WithMany()
                         .HasForeignKey("ProductsProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Vounchee.Data.Models.Entities.Tag", null)
+                    b.HasOne("Vouchee.Data.Models.Entities.Tag", null)
                         .WithMany()
                         .HasForeignKey("TagsTagId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -693,13 +693,13 @@ namespace Vouchee.Data.Migrations
 
             modelBuilder.Entity("ProductUser", b =>
                 {
-                    b.HasOne("Vounchee.Data.Models.Entities.Product", null)
+                    b.HasOne("Vouchee.Data.Models.Entities.Product", null)
                         .WithMany()
                         .HasForeignKey("ProductsProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Vounchee.Data.Models.Entities.User", null)
+                    b.HasOne("Vouchee.Data.Models.Entities.User", null)
                         .WithMany()
                         .HasForeignKey("UsersUserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -708,13 +708,13 @@ namespace Vouchee.Data.Migrations
 
             modelBuilder.Entity("PromotionShop", b =>
                 {
-                    b.HasOne("Vounchee.Data.Models.Entities.Promotion", null)
+                    b.HasOne("Vouchee.Data.Models.Entities.Promotion", null)
                         .WithMany()
                         .HasForeignKey("PromotionsPromotionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Vounchee.Data.Models.Entities.Shop", null)
+                    b.HasOne("Vouchee.Data.Models.Entities.Shop", null)
                         .WithMany()
                         .HasForeignKey("ShopsShopId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -723,28 +723,28 @@ namespace Vouchee.Data.Migrations
 
             modelBuilder.Entity("RoleUser", b =>
                 {
-                    b.HasOne("Vounchee.Data.Models.Entities.Role", null)
+                    b.HasOne("Vouchee.Data.Models.Entities.Role", null)
                         .WithMany()
                         .HasForeignKey("RolesRoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Vounchee.Data.Models.Entities.User", null)
+                    b.HasOne("Vouchee.Data.Models.Entities.User", null)
                         .WithMany()
                         .HasForeignKey("UsersUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Vounchee.Data.Models.Entities.Comment", b =>
+            modelBuilder.Entity("Vouchee.Data.Models.Entities.Comment", b =>
                 {
-                    b.HasOne("Vounchee.Data.Models.Entities.Product", "Product")
+                    b.HasOne("Vouchee.Data.Models.Entities.Product", "Product")
                         .WithMany("Comments")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Vounchee.Data.Models.Entities.User", "User")
+                    b.HasOne("Vouchee.Data.Models.Entities.User", "User")
                         .WithMany("Comments")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -755,27 +755,27 @@ namespace Vouchee.Data.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Vounchee.Data.Models.Entities.Discount", b =>
+            modelBuilder.Entity("Vouchee.Data.Models.Entities.Discount", b =>
                 {
-                    b.HasOne("Vounchee.Data.Models.Entities.Product", "Product")
+                    b.HasOne("Vouchee.Data.Models.Entities.Product", "Product")
                         .WithMany("Discounts")
                         .HasForeignKey("ProductId");
 
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("Vounchee.Data.Models.Entities.Image", b =>
+            modelBuilder.Entity("Vouchee.Data.Models.Entities.Image", b =>
                 {
-                    b.HasOne("Vounchee.Data.Models.Entities.Shop", "Shop")
+                    b.HasOne("Vouchee.Data.Models.Entities.Shop", "Shop")
                         .WithMany("Images")
                         .HasForeignKey("ShopId");
 
                     b.Navigation("Shop");
                 });
 
-            modelBuilder.Entity("Vounchee.Data.Models.Entities.Location", b =>
+            modelBuilder.Entity("Vouchee.Data.Models.Entities.Location", b =>
                 {
-                    b.HasOne("Vounchee.Data.Models.Entities.Shop", "Shop")
+                    b.HasOne("Vouchee.Data.Models.Entities.Shop", "Shop")
                         .WithMany("Locations")
                         .HasForeignKey("ShopId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -784,18 +784,18 @@ namespace Vouchee.Data.Migrations
                     b.Navigation("Shop");
                 });
 
-            modelBuilder.Entity("Vounchee.Data.Models.Entities.Notify", b =>
+            modelBuilder.Entity("Vouchee.Data.Models.Entities.Notify", b =>
                 {
-                    b.HasOne("Vounchee.Data.Models.Entities.User", "User")
+                    b.HasOne("Vouchee.Data.Models.Entities.User", "User")
                         .WithMany("Notifies")
                         .HasForeignKey("UserId");
 
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Vounchee.Data.Models.Entities.Rating", b =>
+            modelBuilder.Entity("Vouchee.Data.Models.Entities.Rating", b =>
                 {
-                    b.HasOne("Vounchee.Data.Models.Entities.Product", "Product")
+                    b.HasOne("Vouchee.Data.Models.Entities.Product", "Product")
                         .WithMany("Ratings")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -804,20 +804,20 @@ namespace Vouchee.Data.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("Vounchee.Data.Models.Entities.Shop", b =>
+            modelBuilder.Entity("Vouchee.Data.Models.Entities.Shop", b =>
                 {
-                    b.HasOne("Vounchee.Data.Models.Entities.User", "User")
+                    b.HasOne("Vouchee.Data.Models.Entities.User", "User")
                         .WithOne("Shop")
-                        .HasForeignKey("Vounchee.Data.Models.Entities.Shop", "UserId")
+                        .HasForeignKey("Vouchee.Data.Models.Entities.Shop", "UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Vounchee.Data.Models.Entities.Transaction", b =>
+            modelBuilder.Entity("Vouchee.Data.Models.Entities.Transaction", b =>
                 {
-                    b.HasOne("Vounchee.Data.Models.Entities.User", "User")
+                    b.HasOne("Vouchee.Data.Models.Entities.User", "User")
                         .WithMany("Transactions")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -826,18 +826,18 @@ namespace Vouchee.Data.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Vounchee.Data.Models.Entities.Wallet", b =>
+            modelBuilder.Entity("Vouchee.Data.Models.Entities.Wallet", b =>
                 {
-                    b.HasOne("Vounchee.Data.Models.Entities.User", "User")
+                    b.HasOne("Vouchee.Data.Models.Entities.User", "User")
                         .WithOne("Wallet")
-                        .HasForeignKey("Vounchee.Data.Models.Entities.Wallet", "UserId")
+                        .HasForeignKey("Vouchee.Data.Models.Entities.Wallet", "UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Vounchee.Data.Models.Entities.Product", b =>
+            modelBuilder.Entity("Vouchee.Data.Models.Entities.Product", b =>
                 {
                     b.Navigation("Comments");
 
@@ -846,14 +846,14 @@ namespace Vouchee.Data.Migrations
                     b.Navigation("Ratings");
                 });
 
-            modelBuilder.Entity("Vounchee.Data.Models.Entities.Shop", b =>
+            modelBuilder.Entity("Vouchee.Data.Models.Entities.Shop", b =>
                 {
                     b.Navigation("Images");
 
                     b.Navigation("Locations");
                 });
 
-            modelBuilder.Entity("Vounchee.Data.Models.Entities.User", b =>
+            modelBuilder.Entity("Vouchee.Data.Models.Entities.User", b =>
                 {
                     b.Navigation("Comments");
 

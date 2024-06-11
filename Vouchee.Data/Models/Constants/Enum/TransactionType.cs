@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Vounchee.Data.Models.Constants.Enum
+namespace Vouchee.Data.Models.Constants.Enum
 {
     public enum TransactionType
     {

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Vounchee.Data.Models.Entities
+namespace Vouchee.Data.Models.Entities
 {
     [Table("Location")]
     public class Location

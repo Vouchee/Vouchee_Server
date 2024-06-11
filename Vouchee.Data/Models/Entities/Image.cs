@@ -1,9 +1,9 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Vounchee.Data.Models.Constants.Enum;
+using Vouchee.Data.Models.Constants.Enum;
 
-namespace Vounchee.Data.Models.Entities
+namespace Vouchee.Data.Models.Entities
 {
     [Table("Image")]
     public class Image
