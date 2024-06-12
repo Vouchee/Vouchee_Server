@@ -184,10 +184,6 @@ namespace Vouchee.Business.Services.Impls
                         Result = false
                     };
                 }
-
-                var newDiscount = _mapper.Map<Discount>(request);
-
-                _discountRepo.Update(newDiscount);
                 await _discountRepo.SaveAsync();
             }
             catch (Exception ex)

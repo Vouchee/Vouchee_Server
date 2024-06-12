@@ -185,9 +185,7 @@ namespace Vouchee.Business.Services.Impls
                     };
                 }
 
-                var newComment = _mapper.Map<Comment>(request);
-
-                _commentRepo.Update(newComment);
+                _commentRepo.Update(existedComment);
                 await _commentRepo.SaveAsync();
             }
             catch (Exception ex)

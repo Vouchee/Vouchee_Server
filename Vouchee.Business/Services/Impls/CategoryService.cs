@@ -135,6 +135,7 @@ namespace Vouchee.Business.Services.Impls
             (int, IQueryable<CategoryResponse>) result;
             try
             {
+                var p = _categoryRepo.GetAllAsync().Result;
                 result = _categoryRepo.GetAllAsync().Result
                     .ProjectTo<CategoryResponse>(_mapper.ConfigurationProvider)
                     .DynamicFilter(_mapper.Map<CategoryResponse>(request))
@@ -185,9 +186,9 @@ namespace Vouchee.Business.Services.Impls
                     };
                 }
 
-                var newCategory = _mapper.Map<Category>(request);
+                existedCategory = _mapper.Map<Category>(request);
 
-                _categoryRepo.Update(newCategory);
+                _categoryRepo.Update(existedCategory);
                 await _categoryRepo.SaveAsync();
             }
             catch (Exception ex)

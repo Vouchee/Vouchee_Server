@@ -18,25 +18,31 @@ namespace Vouchee.Business.Helpers
             {
                 if (entity.GetType().GetProperty(item.Name) == null) continue;
 
-                if (item.PropertyType != typeof(string))
-                {
-                    if (typeof(ICollection<>).IsAssignableFrom(item.PropertyType.GetGenericTypeDefinition())) continue;
-                }
-
-
                 var propertyVal = entity.GetType().GetProperty(item.Name).GetValue(entity, null);
                 if (propertyVal == null) continue;
                 if (item.CustomAttributes.Any(a => a.AttributeType == typeof(SkipAttribute))) continue;
+
                 bool isDateTime = typeof(DateTime).IsAssignableFrom(item.PropertyType) || typeof(DateTime?).IsAssignableFrom(item.PropertyType);
+                bool isGuid = typeof(Guid).IsAssignableFrom(item.PropertyType) || typeof(Guid?).IsAssignableFrom(item.PropertyType);
+
                 if (isDateTime)
                 {
                     DateTime dt = (DateTime)propertyVal;
                     source = source.Where($"{item.Name} >= @0 && {item.Name} < @1", dt.Date, dt.Date.AddDays(1));
                 }
+                else if (isGuid)
+                {
+                    if ((Guid)propertyVal == Guid.Empty) continue; // Skip empty GUIDs
+                    source = source.Where($"{item.Name} == @0", propertyVal);
+                }
+                else if (typeof(ICollection<>).IsAssignableFrom(item.PropertyType.GetGenericTypeDefinition()))
+                {
+                    continue; // Skip ICollection properties
+                }
                 else if (item.CustomAttributes.Any(a => a.AttributeType == typeof(ContainAttribute)))
                 {
                     var array = (IList)propertyVal;
-                    source = source.Where($"{item.Name}.Any(a=> @0.Contains(a))", array);
+                    source = source.Where($"{item.Name}.Any(a => @0.Contains(a))", array);
                 }
                 else if (item.CustomAttributes.Any(a => a.AttributeType == typeof(SortAttribute)))
                 {
@@ -47,8 +53,7 @@ namespace Vouchee.Business.Helpers
                         {
                             source = source.OrderBy(sort[0]);
                         }
-
-                        if (sort[1].Equals("desc"))
+                        else if (sort[1].Equals("desc"))
                         {
                             source = source.OrderBy(sort[0] + " descending");
                         }
@@ -64,14 +69,13 @@ namespace Vouchee.Business.Helpers
                 }
                 else
                 {
-                    source = source.Where($"{item.Name} = \"{propertyVal}\"");
+                    source = source.Where($"{item.Name} == @0", propertyVal);
                 }
             }
             return source;
         }
 
-        public static (int, IQueryable<TResult>) PagingIQueryable<TResult>(this IQueryable<TResult> source, int page, int size,
-            int limitPaging, int defaultPaging)
+        public static (int, IQueryable<TResult>) PagingIQueryable<TResult>(this IQueryable<TResult> source, int page, int size, int limitPaging, int defaultPaging)
         {
             if (size > limitPaging)
             {
@@ -84,7 +88,7 @@ namespace Vouchee.Business.Helpers
             if (page < 1)
             {
                 page = 1;
-            };
+            }
             int total = source == null ? 0 : source.Count();
             IQueryable<TResult> results = source
                 .Skip((page - 1) * size)
