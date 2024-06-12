@@ -187,6 +187,7 @@ namespace Vouchee.Business.Services.Impls
                 }
 
                 existedCategory = _mapper.Map<Category>(request);
+                existedCategory.CategoryId = id;
 
                 _categoryRepo.Update(existedCategory);
                 await _categoryRepo.SaveAsync();
