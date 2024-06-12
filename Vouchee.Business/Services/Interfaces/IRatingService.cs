@@ -14,10 +14,10 @@ namespace Vouchee.Business.Services.Interfaces
 {
     public interface IRatingService
     {
-        public ResponseResult<RatingResponse> GetRating(Guid id);
-        public ResponseResult<RatingResponse> UpdateRating(UpdateRatingRequest request, Guid id);
-        public ResponseResult<RatingResponse> DeleteRating(int id);
-        public ResponseResult<RatingResponse> CreateRating(CreateRatingRequest request);
-        public DynamicModelsResponse<RatingResponse> GetRatings(RatingFilter request, PagingRequest paging);
+        public Task<ResponseResult<RatingResponse>> GetRating(Guid id);
+        public Task<ResponseResult<RatingResponse>> UpdateRating(UpdateRatingRequest request, Guid id);
+        public Task<ResponseResult<RatingResponse>> DeleteRating(Guid id);
+        public Task<ResponseResult<RatingResponse>> CreateRating(CreateRatingRequest request);
+        public Task<DynamicModelsResponse<RatingResponse>> GetRatings(RatingFilter request, PagingRequest paging);
     }
 }

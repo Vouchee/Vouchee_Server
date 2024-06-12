@@ -14,10 +14,10 @@ namespace Vouchee.Business.Services.Interfaces
 {
     public interface IProductService
     {
-        public ResponseResult<ProductResponse> GetProduct(Guid id);
-        public ResponseResult<ProductResponse> UpdateProduct(UpdateProductRequest request, Guid id);
-        public ResponseResult<ProductResponse> DeleteProduct(int id);
-        public ResponseResult<ProductResponse> CreateProduct(CreateProductRequest request);
-        public DynamicModelsResponse<ProductResponse> GetProducts(ProductFilter request, PagingRequest paging);
+        public Task<ResponseResult<ProductResponse>> GetProduct(Guid id);
+        public Task<ResponseResult<ProductResponse>> UpdateProduct(UpdateProductRequest request, Guid id);
+        public Task<ResponseResult<ProductResponse>> DeleteProduct(Guid id);
+        public Task<ResponseResult<ProductResponse>> CreateProduct(CreateProductRequest request);
+        public Task<DynamicModelsResponse<ProductResponse>> GetProducts(ProductFilter request, PagingRequest paging);
     }
 }

@@ -14,10 +14,10 @@ namespace Vouchee.Business.Services.Interfaces
 {
     public interface IImageService
     {
-        public ResponseResult<ImageResponse> GetImage(Guid id);
-        public ResponseResult<ImageResponse> UpdateImage(UpdateImageRequest request, Guid id);
-        public ResponseResult<ImageResponse> DeleteImage(int id);
-        public ResponseResult<ImageResponse> CreateImage(CreateImageRequest request);
-        public DynamicModelsResponse<ImageResponse> GetImages(ImageFilter request, PagingRequest paging);
+        public Task<ResponseResult<ImageResponse>> GetImage(Guid id);
+        public Task<ResponseResult<ImageResponse>> UpdateImage(UpdateImageRequest request, Guid id);
+        public Task<ResponseResult<ImageResponse>> DeleteImage(Guid id);
+        public Task<ResponseResult<ImageResponse>> CreateImage(CreateImageRequest request);
+        public Task<DynamicModelsResponse<ImageResponse>> GetImages(ImageFilter request, PagingRequest paging);
     }
 }

@@ -14,10 +14,10 @@ namespace Vouchee.Business.Services.Interfaces
 {
     public interface IShopService
     {
-        public ResponseResult<ShopResponse> GetShop(Guid id);
-        public ResponseResult<ShopResponse> UpdateShop(UpdateShopRequest request, Guid id);
-        public ResponseResult<ShopResponse> DeleteShop(int id);
-        public ResponseResult<ShopResponse> CreateShop(CreateShopRequest request);
-        public DynamicModelsResponse<ShopResponse> GetShops(ShopFilter request, PagingRequest paging);
+        public Task<ResponseResult<ShopResponse>> GetShop(Guid id);
+        public Task<ResponseResult<ShopResponse>> UpdateShop(UpdateShopRequest request, Guid id);
+        public Task<ResponseResult<ShopResponse>> DeleteShop(Guid id);
+        public Task<ResponseResult<ShopResponse>> CreateShop(CreateShopRequest request);
+        public Task<DynamicModelsResponse<ShopResponse>> GetShops(ShopFilter request, PagingRequest paging);
     }
 }

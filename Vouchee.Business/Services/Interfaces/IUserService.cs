@@ -14,10 +14,10 @@ namespace Vouchee.Business.Services.Interfaces
 {
     public interface IUserService
     {
-        public ResponseResult<UserResponse> GetUser(Guid id);
-        public ResponseResult<UserResponse> UpdateUser(UpdateUserRequest request, Guid id);
-        public ResponseResult<UserResponse> DeleteUser(int id);
-        public ResponseResult<UserResponse> CreateUser(CreateUserRequest request);
-        public DynamicModelsResponse<UserResponse> GetUsers(UserFilter request, PagingRequest paging);
+        public Task<ResponseResult<UserResponse>> GetUser(Guid id);
+        public Task<ResponseResult<UserResponse>> UpdateUser(UpdateUserRequest request, Guid id);
+        public Task<ResponseResult<UserResponse>> DeleteUser(Guid id);
+        public Task<ResponseResult<UserResponse>> CreateUser(CreateUserRequest request);
+        public Task<DynamicModelsResponse<UserResponse>> GetUsers(UserFilter request, PagingRequest paging);
     }
 }

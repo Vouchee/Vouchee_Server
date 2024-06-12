@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,9 +26,9 @@ namespace Vouchee.Data.Repositories.Impls
             return await _dbSet.FindAsync(id);
         }
 
-        public async Task<IEnumerable<T>> GetAllAsync()
+        public async Task<DbSet<T>> GetAllAsync()
         {
-            return await _dbSet.ToListAsync();
+            return _dbSet;
         }
 
         public async Task<T> GetFirstOrDefaultAsync(Expression<Func<T, bool>> predicate)

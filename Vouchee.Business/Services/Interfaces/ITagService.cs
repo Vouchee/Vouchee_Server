@@ -14,10 +14,10 @@ namespace Vouchee.Business.Services.Interfaces
 {
     public interface ITagService
     {
-        public ResponseResult<TagResponse> GetTag(Guid id);
-        public ResponseResult<TagResponse> UpdateTag(UpdateTagRequest request, Guid id);
-        public ResponseResult<TagResponse> DeleteTag(int id);
-        public ResponseResult<TagResponse> CreateTag(CreateTagRequest request);
-        public DynamicModelsResponse<TagResponse> GetTags(TagFilter request, PagingRequest paging);
+        public Task<ResponseResult<TagResponse>> GetTag(Guid id);
+        public Task<ResponseResult<TagResponse>> UpdateTag(UpdateTagRequest request, Guid id);
+        public Task<ResponseResult<TagResponse>> DeleteTag(Guid id);
+        public Task<ResponseResult<TagResponse>> CreateTag(CreateTagRequest request);
+        public Task<DynamicModelsResponse<TagResponse>> GetTags(TagFilter request, PagingRequest paging);
     }
 }

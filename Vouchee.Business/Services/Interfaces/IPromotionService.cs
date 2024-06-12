@@ -14,10 +14,10 @@ namespace Vouchee.Business.Services.Interfaces
 {
     public interface IPromotionService
     {
-        public ResponseResult<PromotionResponse> GetPromotion(Guid id);
-        public ResponseResult<PromotionResponse> UpdatePromotion(UpdatePromotionRequest request, Guid id);
-        public ResponseResult<PromotionResponse> DeletePromotion(int id);
-        public ResponseResult<PromotionResponse> CreatePromotion(CreatePromotionRequest request);
-        public DynamicModelsResponse<PromotionResponse> GetPromotions(PromotionFilter request, PagingRequest paging);
+        public Task<ResponseResult<PromotionResponse>> GetPromotion(Guid id);
+        public Task<ResponseResult<PromotionResponse>> UpdatePromotion(UpdatePromotionRequest request, Guid id);
+        public Task<ResponseResult<PromotionResponse>> DeletePromotion(Guid id);
+        public Task<ResponseResult<PromotionResponse>> CreatePromotion(CreatePromotionRequest request);
+        public Task<DynamicModelsResponse<PromotionResponse>> GetPromotions(PromotionFilter request, PagingRequest paging);
     }
 }

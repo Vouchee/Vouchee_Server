@@ -14,10 +14,10 @@ namespace Vouchee.Business.Services.Interfaces
 {
     public interface ICategoryService
     {
-        public ResponseResult<CategoryResponse> GetCategory(Guid id);
-        public ResponseResult<CategoryResponse> UpdateCategory(UpdateCategoryRequest request, Guid id);
-        public ResponseResult<CategoryResponse> DeleteCategory(int id);
-        public ResponseResult<CategoryResponse> CreateCategory(CreateCategoryRequest request);
-        public DynamicModelsResponse<CategoryResponse> GetCategories(CategoryFilter request, PagingRequest paging);
+        public Task<ResponseResult<CategoryResponse>> GetCategory(Guid id);
+        public Task<ResponseResult<CategoryResponse>> UpdateCategory(UpdateCategoryRequest request, Guid id);
+        public Task<ResponseResult<CategoryResponse>> DeleteCategory(Guid id);
+        public Task<ResponseResult<CategoryResponse>> CreateCategory(CreateCategoryRequest request);
+        public Task<DynamicModelsResponse<CategoryResponse>> GetCategories(CategoryFilter request, PagingRequest paging);
     }
 }

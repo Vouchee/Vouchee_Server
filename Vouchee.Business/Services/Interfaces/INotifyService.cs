@@ -14,10 +14,10 @@ namespace Vouchee.Business.Services.Interfaces
 {
     public interface INotifyService
     {
-        public ResponseResult<NotifyResponse> GetNotify(Guid id);
-        public ResponseResult<NotifyResponse> UpdateNotify(UpdateNotifyRequest request, Guid id);
-        public ResponseResult<NotifyResponse> DeleteNotify(int id);
-        public ResponseResult<NotifyResponse> CreateNotify(CreateNotifyRequest request);
-        public DynamicModelsResponse<NotifyResponse> GetNotifies(NotifyFilter request, PagingRequest paging);
+        public Task<ResponseResult<NotifyResponse>> GetNotify(Guid id);
+        public Task<ResponseResult<NotifyResponse>> UpdateNotify(UpdateNotifyRequest request, Guid id);
+        public Task<ResponseResult<NotifyResponse>> DeleteNotify(Guid id);
+        public Task<ResponseResult<NotifyResponse>> CreateNotify(CreateNotifyRequest request);
+        public Task<DynamicModelsResponse<NotifyResponse>> GetNotifies(NotifyFilter request, PagingRequest paging);
     }
 }

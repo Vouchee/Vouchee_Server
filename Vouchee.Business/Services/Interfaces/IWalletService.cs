@@ -12,12 +12,12 @@ using Vouchee.Business.ResponseModels;
 
 namespace Vouchee.Business.Services.Interfaces
 {
-    public interface iWalletService
+    public interface IWalletService
     {
-        public ResponseResult<WalletResponse> GetWallet(Guid id);
-        public ResponseResult<WalletResponse> UpdateWallet(UpdateWalletRequest request, Guid id);
-        public ResponseResult<WalletResponse> DeleteWallet(int id);
-        public ResponseResult<WalletResponse> CreateWallet(CreateWalletRequest request);
-        public DynamicModelsResponse<WalletResponse> GetWallets(WalletFilter request, PagingRequest paging);
+        public Task<ResponseResult<WalletResponse>> GetWallet(Guid id);
+        public Task<ResponseResult<WalletResponse>> UpdateWallet(UpdateWalletRequest request, Guid id);
+        public Task<ResponseResult<WalletResponse>> DeleteWallet(Guid id);
+        public Task<ResponseResult<WalletResponse>> CreateWallet(CreateWalletRequest request);
+        public Task<DynamicModelsResponse<WalletResponse>> GetWallets(WalletFilter request, PagingRequest paging);
     }
 }

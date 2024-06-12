@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Vouchee.Data.Models.Constants
 {
-    public static class StringConstaint
+    public static class StringConstant
     {
         #region Addition
         public const string NOT_FOUND_INFO = "Không tìm thấy thông tin tương ứng!";

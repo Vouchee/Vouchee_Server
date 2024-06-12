@@ -14,10 +14,10 @@ namespace Vouchee.Business.Services.Interfaces
 {
     public interface ITransactionService
     {
-        public ResponseResult<TransactionResponse> GetTransaction(Guid id);
-        public ResponseResult<TransactionResponse> UpdateTransaction(UpdateTransactionRequest request, Guid id);
-        public ResponseResult<TransactionResponse> DeleteTransaction(int id);
-        public ResponseResult<TransactionResponse> CreateTransaction(CreateTransactionRequest request);
-        public DynamicModelsResponse<TransactionResponse> GetTransactions(TransactionFilter request, PagingRequest paging);
+        public Task<ResponseResult<TransactionResponse>> GetTransaction(Guid id);
+        public Task<ResponseResult<TransactionResponse>> UpdateTransaction(UpdateTransactionRequest request, Guid id);
+        public Task<ResponseResult<TransactionResponse>> DeleteTransaction(Guid id);
+        public Task<ResponseResult<TransactionResponse>> CreateTransaction(CreateTransactionRequest request);
+        public Task<DynamicModelsResponse<TransactionResponse>> GetTransactions(TransactionFilter request, PagingRequest paging);
     }
 }

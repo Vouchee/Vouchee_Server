@@ -15,10 +15,10 @@ namespace Vouchee.Business.Services.Interfaces
 {
     public interface IDiscountService
     {
-        public ResponseResult<DiscountResponse> GetDiscount(Guid id);
-        public ResponseResult<DiscountResponse> UpdateDiscount(UpdateDiscountRequest request, Guid id);
-        public ResponseResult<DiscountResponse> DeleteDiscount(int id);
-        public ResponseResult<DiscountResponse> CreateDiscount(CreateDiscountRequest request);
-        public DynamicModelsResponse<DiscountResponse> GetDiscounts(DiscountFilter request, PagingRequest paging);
+        public Task<ResponseResult<DiscountResponse>> GetDiscount(Guid id);
+        public Task<ResponseResult<DiscountResponse>> UpdateDiscount(UpdateDiscountRequest request, Guid id);
+        public Task<ResponseResult<DiscountResponse>> DeleteDiscount(Guid id);
+        public Task<ResponseResult<DiscountResponse>> CreateDiscount(CreateDiscountRequest request);
+        public Task<DynamicModelsResponse<DiscountResponse>> GetDiscounts(DiscountFilter request, PagingRequest paging);
     }
 }

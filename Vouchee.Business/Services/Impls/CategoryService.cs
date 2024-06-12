@@ -11,236 +11,203 @@ using Vouchee.Business.ResponseModels;
 using Vouchee.Business.Services.Interfaces;
 using Vouchee.Data.Models.Entities;
 using AutoMapper;
+using Vouchee.Data.Repositories.Interfaces;
+using Vouchee.Data.Models.Constants;
+using AutoMapper.QueryableExtensions;
+using Vouchee.Business.Helpers;
 
 namespace Vouchee.Business.Services.Impls
 {
     public class CategoryService : ICategoryService
     {
-        private readonly ICategoryService _categoryService;
+        private readonly ICategoryRepo _categoryRepo;
         private readonly IMapper _mapper;
 
-        public CategoryService(IGenericRepository<Category> repository, IMapper mapper, IGenericRepository<OrderDetail> orderRepository)
+        public CategoryService(IMapper mapper, ICategoryRepo categoryRepo)
         {
-            _orderRepository = orderRepository;
-            _repository = repository;
+            _categoryRepo = categoryRepo;
             _mapper = mapper;
         }
 
-        public ResponseResult<ICollection<CategoryReponse>> CategoryStatistics()
-        {
-            ICollection<CategoryReponse> lstCate = new List<CategoryReponse>();
-
-            try
-            {
-
-                lstCate = _mapper.Map<ICollection<CategoryReponse>>(_repository.GetAll().ToList());
-                lstCate = lstCate.OrderByDescending(x => x.TotalAmount).ToList();
-
-
-            }
-            catch (Exception ex)
-            {
-                return new ResponseResult<ICollection<CategoryReponse>>()
-                {
-                    Message = Constraints.LOAD_INFO_FAILED,
-                };
-            }
-
-            return new ResponseResult<ICollection<CategoryReponse>>()
-            {
-                Value = lstCate,
-                result = true,
-            };
-
-
-
-        }
-        public ResponseResult<CategoryReponse> CreateCategory(CreateCategoryRequest request)
+       
+        public async Task<ResponseResult<CategoryResponse>> CreateCategory(CreateCategoryRequest request)
         {
             try
             {
-
-                _repository.Insert(_mapper.Map<Category>(request));
-                _repository.Save();
-
+                var entity = _mapper.Map<Category>(request);
+                await _categoryRepo.AddAsync(_mapper.Map<Category>(request));
+                await _categoryRepo.SaveAsync();
             }
             catch (Exception ex)
             {
-                return new ResponseResult<CategoryReponse>()
+                return new ResponseResult<CategoryResponse>()
                 {
-                    Message = Constraints.CREATE_INFO_FAILED,
-                    result = false
+                    Message = StringConstant.CREATE_INFO_FAILED,
+                    Result = false
                 };
             }
             finally
             {
-                lock (_repository) ;
+                lock (_categoryRepo) ;
             }
-
-            return new ResponseResult<CategoryReponse>()
+            return new ResponseResult<CategoryResponse>()
             {
-                Message = Constraints.CREATE_INFO_SUCCESS,
-                result = true
+                Message = StringConstant.CREATE_INFO_SUCCESS,
+                Result = true
             };
         }
 
-        public ResponseResult<CategoryReponse> DeleteCategory(int id)
+        public async Task<ResponseResult<CategoryResponse>> DeleteCategory(Guid id)
         {
             try
             {
-                var existedCategory = _repository.GetByIdByInt(id).Result;
+                var existedCategory = _categoryRepo.GetByIdAsync(id).Result;
 
                 if (existedCategory == null)
                 {
-                    return new ResponseResult<CategoryReponse>()
+                    return new ResponseResult<CategoryResponse>()
                     {
-                        Message = Constraints.NOT_FOUND_INFO,
-                        result = false
+                        Message = StringConstant.NOT_FOUND_INFO,
+                        Result = false
                     };
                 }
 
-                _repository.HardDelete(id);
-                _repository.Save();
+                _categoryRepo.Delete(existedCategory);
+                await _categoryRepo.SaveAsync();
 
             }
             catch (Exception ex)
             {
-                return new ResponseResult<CategoryReponse>()
+                return new ResponseResult<CategoryResponse>()
                 {
-                    Message = Constraints.DELETE_INFO_FAILED,
-                    result = false
+                    Message = StringConstant.DELETE_INFO_FAILED,
+                    Result = false
                 };
             }
             finally
             {
-                lock (_repository) ;
+                lock (_categoryRepo) ;
             }
 
-            return new ResponseResult<CategoryReponse>()
+            return new ResponseResult<CategoryResponse>()
             {
-                Message = Constraints.DELETE_INFO_SUCCESS,
-                result = true
+                Message = StringConstant.DELETE_INFO_SUCCESS,
+                Result = true
             };
         }
 
-        public ResponseResult<CategoryReponse> GetCategory(int id)
+        public async Task<ResponseResult<CategoryResponse>> GetCategory(Guid id)
         {
-            CategoryReponse result;
+            CategoryResponse result;
 
             try
             {
-                result = _mapper.Map<CategoryReponse>(_repository.GetByIdByInt(id).Result);
+                result = _mapper.Map<CategoryResponse>(_categoryRepo.GetByIdAsync(id).Result);
 
                 if (result == null)
                 {
-                    return new ResponseResult<CategoryReponse>()
+                    return new ResponseResult<CategoryResponse>()
                     {
-                        Message = Constraints.NOT_FOUND_INFO,
+                        Message = StringConstant.NOT_FOUND_INFO,
                     };
                 }
             }
             catch (Exception ex)
             {
-                return new ResponseResult<CategoryReponse>()
+                return new ResponseResult<CategoryResponse>()
                 {
-                    Message = Constraints.LOAD_INFO_FAILED,
+                    Message = StringConstant.LOAD_INFO_FAILED,
                 };
             }
             finally
             {
-                lock (_repository) ;
+                lock (_categoryRepo) ;
             }
 
-            return new ResponseResult<CategoryReponse>()
+            return new ResponseResult<CategoryResponse>()
             {
                 Value = result,
             };
         }
 
-        public DynamicModelResponse.DynamicModelsResponse<CategoryReponse> GetCategorys(CategoryFilter request, PagingRequest paging)
+        public async Task<DynamicModelResponse.DynamicModelsResponse<CategoryResponse>> GetCategories(CategoryFilter request, PagingRequest paging)
         {
-            (int, IQueryable<CategoryReponse>) result;
+            (int, IQueryable<CategoryResponse>) result;
             try
             {
-                result = _repository.GetAll()
-                    .ProjectTo<CategoryReponse>(_mapper.ConfigurationProvider)
-                .DynamicFilter(_mapper.Map<CategoryReponse>(request))
-                    .PagingIQueryable(paging.page, paging.pageSize, Constraints.LimitPaging, Constraints.DefaultPaging);
+                result = _categoryRepo.GetAllAsync().Result
+                    .ProjectTo<CategoryResponse>(_mapper.ConfigurationProvider)
+                    .DynamicFilter(_mapper.Map<CategoryResponse>(request))
+                    .PagingIQueryable(paging.Page, paging.PageSize, StringConstant.LimitPaging, StringConstant.DefaultPaging);
 
                 if (result.Item2.ToList().Count() == 0)
                 {
-                    return new DynamicModelResponse.DynamicModelsResponse<CategoryReponse>()
+                    return new DynamicModelResponse.DynamicModelsResponse<CategoryResponse>()
                     {
-                        Message = Constraints.EMPTY_INFO,
+                        Message = StringConstant.EMPTY_INFO,
                     };
                 }
-
             }
             catch (Exception ex)
             {
-                return new DynamicModelResponse.DynamicModelsResponse<CategoryReponse>()
+                return new DynamicModelResponse.DynamicModelsResponse<CategoryResponse>()
                 {
-                    Message = Constraints.LOAD_INFO_FAILED,
+                    Message = StringConstant.LOAD_INFO_FAILED,
                 };
             }
             finally
             {
-                lock (_repository) ;
+                lock (_categoryRepo) ;
             }
-
-            return new DynamicModelResponse.DynamicModelsResponse<CategoryReponse>()
+            return new DynamicModelResponse.DynamicModelsResponse<CategoryResponse>()
             {
                 Metadata = new DynamicModelResponse.PagingMetadata()
                 {
-                    Page = paging.page,
-                    Size = paging.pageSize
+                    Page = paging.Page,
+                    Size = paging.PageSize
                 },
                 Results = result.Item2.ToList()
             };
         }
 
-        public ResponseResult<CategoryReponse> UpdateCategory(UpdateCategoryRequest request, int id)
+        public async Task<ResponseResult<CategoryResponse>> UpdateCategory(UpdateCategoryRequest request, Guid id)
         {
             try
             {
-                var existedCategory = _repository.GetByIdByInt(id).Result;
+                var existedCategory = _categoryRepo.GetByIdAsync(id).Result;
 
-                if (UpdateCategory == null)
+                if (existedCategory == null)
                 {
-                    return new ResponseResult<CategoryReponse>()
+                    return new ResponseResult<CategoryResponse>()
                     {
-                        Message = Constraints.NOT_FOUND_INFO,
-                        result = false
+                        Message = StringConstant.NOT_FOUND_INFO,
+                        Result = false
                     };
                 }
 
-                existedCategory.CategoryName = request.CategoryName;
+                var newCategory = _mapper.Map<Category>(request);
 
-                _repository.UpdateById(existedCategory, id);
-                _repository.Save();
-
+                _categoryRepo.Update(newCategory);
+                await _categoryRepo.SaveAsync();
             }
             catch (Exception ex)
             {
-                return new ResponseResult<CategoryReponse>()
+                return new ResponseResult<CategoryResponse>()
                 {
-                    Message = Constraints.UPDATE_INFO_FAILED,
-                    result = false
+                    Message = StringConstant.UPDATE_INFO_FAILED,
+                    Result = false
                 };
             }
             finally
             {
-                lock (_repository) ;
+                lock (_categoryRepo) ;
             }
 
-            return new ResponseResult<CategoryReponse>()
+            return new ResponseResult<CategoryResponse>()
             {
-                Message = Constraints.UPDATE_INFO_SUCCESS,
-                result = true
+                Message = StringConstant.UPDATE_INFO_SUCCESS,
+                Result = true
             };
         }
-    }
-}
-
     }
 }

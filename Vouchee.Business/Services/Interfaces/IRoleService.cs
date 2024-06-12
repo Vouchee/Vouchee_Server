@@ -14,10 +14,10 @@ namespace Vouchee.Business.Services.Interfaces
 {
     public interface IRoleService
     {
-        public ResponseResult<RoleResponse> GetRole(Guid id);
-        public ResponseResult<RoleResponse> UpdateRole(UpdateRoleRequest request, Guid id);
-        public ResponseResult<RoleResponse> DeleteRole(int id);
-        public ResponseResult<RoleResponse> CreateRole(CreateRoleRequest request);
-        public DynamicModelsResponse<RoleResponse> GetRoles(RoleFilter request, PagingRequest paging);
+        public Task<ResponseResult<RoleResponse>> GetRole(Guid id);
+        public Task<ResponseResult<RoleResponse>> UpdateRole(UpdateRoleRequest request, Guid id);
+        public Task<ResponseResult<RoleResponse>> DeleteRole(Guid id);
+        public Task<ResponseResult<RoleResponse>> CreateRole(CreateRoleRequest request);
+        public Task<DynamicModelsResponse<RoleResponse>> GetRoles(RoleFilter request, PagingRequest paging);
     }
 }

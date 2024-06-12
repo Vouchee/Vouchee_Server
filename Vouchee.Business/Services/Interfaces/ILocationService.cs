@@ -14,10 +14,10 @@ namespace Vouchee.Business.Services.Interfaces
 {
     public interface ILocationService
     {
-        public ResponseResult<LocationResponse> GetLocation(Guid id);
-        public ResponseResult<LocationResponse> UpdateLocation(UpdateLocationRequest request, Guid id);
-        public ResponseResult<LocationResponse> DeleteLocation(int id);
-        public ResponseResult<LocationResponse> CreateLocation(CreateLocationRequest request);
-        public DynamicModelsResponse<LocationResponse> GetLocations(LocationFilter request, PagingRequest paging);
+        public Task<ResponseResult<LocationResponse>> GetLocation(Guid id);
+        public Task<ResponseResult<LocationResponse>> UpdateLocation(UpdateLocationRequest request, Guid id);
+        public Task<ResponseResult<LocationResponse>> DeleteLocation(Guid id);
+        public Task<ResponseResult<LocationResponse>> CreateLocation(CreateLocationRequest request);
+        public Task<DynamicModelsResponse<LocationResponse>> GetLocations(LocationFilter request, PagingRequest paging);
     }
 }
