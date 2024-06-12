@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Vouchee.Data.Models.Entities
 {
+    [Table("Role")]
     public class Role
     {
         public Role()

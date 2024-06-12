@@ -12,7 +12,7 @@ using Vouchee.Data.Helpers;
 namespace Vouchee.Data.Migrations
 {
     [DbContext(typeof(VoucheeContext))]
-    [Migration("20240611162242_InitialCreate")]
+    [Migration("20240611170907_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -500,7 +500,7 @@ namespace Vouchee.Data.Migrations
 
                     b.HasKey("RoleId");
 
-                    b.ToTable("Roles");
+                    b.ToTable("Role");
                 });
 
             modelBuilder.Entity("Vouchee.Data.Models.Entities.Shop", b =>

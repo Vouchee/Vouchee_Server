@@ -497,7 +497,7 @@ namespace Vouchee.Data.Migrations
 
                     b.HasKey("RoleId");
 
-                    b.ToTable("Roles");
+                    b.ToTable("Role");
                 });
 
             modelBuilder.Entity("Vouchee.Data.Models.Entities.Shop", b =>

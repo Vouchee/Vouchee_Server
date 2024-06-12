@@ -72,7 +72,7 @@ namespace Vouchee.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Roles",
+                name: "Role",
                 columns: table => new
                 {
                     RoleId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -80,7 +80,7 @@ namespace Vouchee.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Roles", x => x.RoleId);
+                    table.PrimaryKey("PK_Role", x => x.RoleId);
                 });
 
             migrationBuilder.CreateTable(
@@ -301,9 +301,9 @@ namespace Vouchee.Data.Migrations
                 {
                     table.PrimaryKey("PK_RoleUser", x => new { x.RolesRoleId, x.UsersUserId });
                     table.ForeignKey(
-                        name: "FK_RoleUser_Roles_RolesRoleId",
+                        name: "FK_RoleUser_Role_RolesRoleId",
                         column: x => x.RolesRoleId,
-                        principalTable: "Roles",
+                        principalTable: "Role",
                         principalColumn: "RoleId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -594,7 +594,7 @@ namespace Vouchee.Data.Migrations
                 name: "Product");
 
             migrationBuilder.DropTable(
-                name: "Roles");
+                name: "Role");
 
             migrationBuilder.DropTable(
                 name: "User");
