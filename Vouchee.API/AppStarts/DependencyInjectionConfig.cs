@@ -59,6 +59,9 @@ namespace Vouchee.API.AppStarts
 
             services.AddScoped<IWalletRepo, WalletRepo>();
             services.AddScoped<IWalletService, WalletService>();
+            
+            services.AddScoped<ITokenService, TokenService>();
+            
         }
     }
 }

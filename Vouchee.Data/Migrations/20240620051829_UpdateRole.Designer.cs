@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Vouchee.Data.Helpers;
 
@@ -11,9 +12,11 @@ using Vouchee.Data.Helpers;
 namespace Vouchee.Data.Migrations
 {
     [DbContext(typeof(VoucheeContext))]
-    partial class VoucheeContextModelSnapshot : ModelSnapshot
+    [Migration("20240620051829_UpdateRole")]
+    partial class UpdateRole
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -584,25 +587,25 @@ namespace Vouchee.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("75633c19-d23a-4b64-9a0a-ca6040d146b5"),
+                            Id = new Guid("afb3f9df-7904-49cf-93ba-c41e292ea8ab"),
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = new Guid("0afdc54a-cd33-4a96-8d40-4363f04641b0"),
+                            Id = new Guid("e2bb9d23-ebb6-4a3e-bb9f-8b9c4d60f813"),
                             Name = "Customer",
                             NormalizedName = "CUSTOMER"
                         },
                         new
                         {
-                            Id = new Guid("7d33b111-3114-4bab-802e-4c78a8c6fdca"),
+                            Id = new Guid("6e823eb8-460f-4cff-a9b3-b99a4e5f36a8"),
                             Name = "Shop",
                             NormalizedName = "SHOP"
                         },
                         new
                         {
-                            Id = new Guid("9a5cffcc-5906-4354-998b-5b9e639c8d03"),
+                            Id = new Guid("e69848ef-2c3c-45cf-907f-4dd11021529e"),
                             Name = "Staff",
                             NormalizedName = "STAFF"
                         });
@@ -776,7 +779,7 @@ namespace Vouchee.Data.Migrations
                     b.Property<int>("UserStatusEnum")
                         .HasColumnType("int");
 
-                    b.Property<Guid?>("WalletId")
+                    b.Property<Guid>("WalletId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
