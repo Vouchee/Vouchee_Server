@@ -44,6 +44,7 @@ namespace Vouchee.Data.Helpers
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+
             optionsBuilder.UseSqlServer("Server=localhost;Database=Vouchee;Trusted_Connection=false;user=sa;pwd=123456@Aa;TrustServerCertificate=True");
 
         }

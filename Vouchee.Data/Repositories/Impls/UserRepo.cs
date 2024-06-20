@@ -18,5 +18,7 @@ namespace Vouchee.Data.Repositories.Impls
         {
             _context = context;
         }
+
+        
     }
 }

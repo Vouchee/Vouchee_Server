@@ -3,9 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Dynamic.Core;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
+using System.Reflection;
 
 namespace Vouchee.Business.Helpers
 {
@@ -13,65 +11,86 @@ namespace Vouchee.Business.Helpers
     {
         public static IQueryable<TEntity> DynamicFilter<TEntity>(this IQueryable<TEntity> source, TEntity entity)
         {
-            var properties = entity.GetType().GetProperties();
-            foreach (var item in properties)
+            if (entity == null)
             {
-                if (entity.GetType().GetProperty(item.Name) == null) continue;
+                return source;
+            }
 
-                var propertyVal = entity.GetType().GetProperty(item.Name).GetValue(entity, null);
-                if (propertyVal == null) continue;
-                if (item.CustomAttributes.Any(a => a.AttributeType == typeof(SkipAttribute))) continue;
+            var properties = entity.GetType().GetProperties();
 
-                bool isDateTime = typeof(DateTime).IsAssignableFrom(item.PropertyType) || typeof(DateTime?).IsAssignableFrom(item.PropertyType);
-                bool isGuid = typeof(Guid).IsAssignableFrom(item.PropertyType) || typeof(Guid?).IsAssignableFrom(item.PropertyType);
+            foreach (var property in properties)
+            {
+                var propertyValue = property.GetValue(entity, null);
 
-                if (isDateTime)
+                if (propertyValue == null)
                 {
-                    DateTime dt = (DateTime)propertyVal;
-                    source = source.Where($"{item.Name} >= @0 && {item.Name} < @1", dt.Date, dt.Date.AddDays(1));
+                    continue;
                 }
-                else if (isGuid)
+
+                if (property.CustomAttributes.Any(a => a.AttributeType == typeof(SkipAttribute)))
                 {
-                    if ((Guid)propertyVal == Guid.Empty) continue; // Skip empty GUIDs
-                    source = source.Where($"{item.Name} == @0", propertyVal);
+                    continue;
                 }
-                else if (typeof(ICollection<>).IsAssignableFrom(item.PropertyType.GetGenericTypeDefinition()))
+
+                bool isDateTime = typeof(DateTime).IsAssignableFrom(property.PropertyType) || typeof(DateTime?).IsAssignableFrom(property.PropertyType);
+                bool isGuid = typeof(Guid).IsAssignableFrom(property.PropertyType) || typeof(Guid?).IsAssignableFrom(property.PropertyType);
+
+                try
                 {
-                    continue; // Skip ICollection properties
-                }
-                else if (item.CustomAttributes.Any(a => a.AttributeType == typeof(ContainAttribute)))
-                {
-                    var array = (IList)propertyVal;
-                    source = source.Where($"{item.Name}.Any(a => @0.Contains(a))", array);
-                }
-                else if (item.CustomAttributes.Any(a => a.AttributeType == typeof(SortAttribute)))
-                {
-                    string[] sort = propertyVal.ToString().Split(", ");
-                    if (sort.Length == 2)
+                    if (isDateTime)
                     {
-                        if (sort[1].Equals("asc"))
+                        DateTime dt = (DateTime)propertyValue;
+                        source = source.Where($"{property.Name} >= @0 && {property.Name} < @1", dt.Date, dt.Date.AddDays(1));
+                    }
+                    else if (isGuid)
+                    {
+                        if ((Guid)propertyValue == Guid.Empty) continue; // Skip empty GUIDs
+                        source = source.Where($"{property.Name} == @0", propertyValue);
+                    }
+                    else if (property.PropertyType.IsGenericType && typeof(ICollection<>).IsAssignableFrom(property.PropertyType.GetGenericTypeDefinition()))
+                    {
+                        continue; // Skip ICollection properties
+                    }
+                    else if (property.CustomAttributes.Any(a => a.AttributeType == typeof(ContainAttribute)))
+                    {
+                        var array = (IList)propertyValue;
+                        source = source.Where($"{property.Name}.Any(a => @0.Contains(a))", array);
+                    }
+                    else if (property.CustomAttributes.Any(a => a.AttributeType == typeof(SortAttribute)))
+                    {
+                        string[] sort = propertyValue.ToString().Split(", ");
+                        if (sort.Length == 2)
+                        {
+                            if (sort[1].Equals("asc", StringComparison.OrdinalIgnoreCase))
+                            {
+                                source = source.OrderBy(sort[0]);
+                            }
+                            else if (sort[1].Equals("desc", StringComparison.OrdinalIgnoreCase))
+                            {
+                                source = source.OrderBy(sort[0] + " descending");
+                            }
+                        }
+                        else
                         {
                             source = source.OrderBy(sort[0]);
                         }
-                        else if (sort[1].Equals("desc"))
-                        {
-                            source = source.OrderBy(sort[0] + " descending");
-                        }
+                    }
+                    else if (property.PropertyType == typeof(string))
+                    {
+                        source = source.Where($"{property.Name}.ToLower().Contains(@0)", ((string)propertyValue).Trim().ToLower());
                     }
                     else
                     {
-                        source = source.OrderBy(sort[0]);
+                        source = source.Where($"{property.Name} == @0", propertyValue);
                     }
                 }
-                else if (item.PropertyType == typeof(string))
+                catch (Exception ex)
                 {
-                    source = source.Where($"{item.Name}.ToLower().Contains(@0)", ((string)propertyVal).Trim().ToLower());
-                }
-                else
-                {
-                    source = source.Where($"{item.Name} == @0", propertyVal);
+                    // Log exception or handle it as necessary
+                    continue;
                 }
             }
+
             return source;
         }
 
@@ -89,7 +108,7 @@ namespace Vouchee.Business.Helpers
             {
                 page = 1;
             }
-            int total = source == null ? 0 : source.Count();
+            int total = source?.Count() ?? 0;
             IQueryable<TResult> results = source
                 .Skip((page - 1) * size)
                 .Take(size);

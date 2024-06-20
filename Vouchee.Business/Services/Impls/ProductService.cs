@@ -15,6 +15,8 @@ using Vouchee.Data.Repositories.Interfaces;
 using Vouchee.Data.Models.Constants;
 using AutoMapper.QueryableExtensions;
 using Vouchee.Business.Helpers;
+using Vouchee.Data.Repositories.Impls;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Vouchee.Business.Services.Impls
 {
@@ -135,12 +137,16 @@ namespace Vouchee.Business.Services.Impls
             (int, IQueryable<ProductResponse>) result;
             try
             {
-                result = _productRepo.GetAllAsync().Result
-                    .ProjectTo<ProductResponse>(_mapper.ConfigurationProvider)
-                    .DynamicFilter(_mapper.Map<ProductResponse>(request))
-                    .PagingIQueryable(paging.Page, paging.PageSize, StringConstant.LimitPaging, StringConstant.DefaultPaging);
+                var query = _productRepo.GetAllAsync().Result;
+                var filtercheck = request.GetType().GetProperties().All(p => p.GetValue(request) != null);
+                var mappedRequest = filtercheck ? _mapper.Map<ProductResponse>(request) : null;
+                var filteredQuery = mappedRequest != null
+                    ? query.ProjectTo<ProductResponse>(_mapper.ConfigurationProvider).DynamicFilter(mappedRequest)
+                    : query.ProjectTo<ProductResponse>(_mapper.ConfigurationProvider);
 
-                if (result.Item2.ToList().Count() == 0)
+                result = filteredQuery.PagingIQueryable(paging.Page, paging.PageSize, StringConstant.LimitPaging, StringConstant.DefaultPaging);
+
+                if (!result.Item2.Any())
                 {
                     return new DynamicModelResponse.DynamicModelsResponse<ProductResponse>()
                     {

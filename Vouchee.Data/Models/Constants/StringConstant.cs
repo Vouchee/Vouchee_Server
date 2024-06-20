@@ -19,6 +19,9 @@ namespace Vouchee.Data.Models.Constants
         public const string UPDATE_INFO_FAILED = "Cập nhật thông tin thất bại!";
         public const string DELETE_INFO_SUCCESS = "Xóa thông tin thành công!";
         public const string DELETE_INFO_FAILED = "Xóa thông tin thất bại!";
+        public const string LOGIN_SUCCESS = "Đăng nhập thành công";
+        public const string WRONG_USERNAME = "Sai tên đăng nhập";
+        public const string WRONG_PASSWORD = "Sai mật khẩu";
         #endregion
 
         #region Validate

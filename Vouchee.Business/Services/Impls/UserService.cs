@@ -15,6 +15,11 @@ using Vouchee.Data.Repositories.Interfaces;
 using Vouchee.Data.Models.Constants;
 using AutoMapper.QueryableExtensions;
 using Vouchee.Business.Helpers;
+using System.Text.RegularExpressions;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 
 namespace Vouchee.Business.Services.Impls
 {
@@ -22,11 +27,13 @@ namespace Vouchee.Business.Services.Impls
     {
         private readonly IUserRepo _userRepo;
         private readonly IMapper _mapper;
+        private IConfiguration _config;
 
-        public UserService(IMapper mapper, IUserRepo userRepo)
+        public UserService(IMapper mapper, IUserRepo userRepo,IConfiguration configuration)
         {
             _userRepo = userRepo;
             _mapper = mapper;
+            _config = configuration;
         }
 
 
@@ -209,5 +216,71 @@ namespace Vouchee.Business.Services.Impls
                 Result = true
             };
         }
+
+        public async Task<ResponseResult<LoginRequest>> Login(LoginRequest login)
+        {
+            var user = await _userRepo.GetFirstOrDefaultAsync(u => u.UserName ==  login.UserName);
+            if (!IsValidPassword(login.UserPassword))
+            {
+                return new ResponseResult<LoginRequest>()
+                {
+                    Message = StringConstant.PASSWORD_INVALIDATE,
+                    Result = false
+                };
+            }
+            if (user != null)
+            {
+                if (!user.UserPassword.Equals(login.UserPassword))
+                {
+                    return new ResponseResult<LoginRequest>()
+                    {
+                        Message = StringConstant.WRONG_PASSWORD,
+                        Result = false
+                    };
+                }
+                var token = GenerateJSONWebToken(login);
+                return new ResponseResult<LoginRequest>()
+                {
+                    Message = StringConstant.LOGIN_SUCCESS,
+                    Result = true,
+                    Response = token,
+                };
+            }
+            return new ResponseResult<LoginRequest>()
+            {
+                Message = StringConstant.EMPTY_INFO,
+                Result = false
+            };
+        }
+        public bool IsValidPassword(string password)
+        {
+            var hasMinimum6Chars = new Regex(@".{6,}");
+            var hasUpperChar = new Regex(@"[A-Z]+");
+            var hasSpecialChar = new Regex(@"[!@#$%^&*(),.?""{}|<>]");
+
+            return hasMinimum6Chars.IsMatch(password) && hasUpperChar.IsMatch(password) && hasSpecialChar.IsMatch(password);
+        }
+        private string GenerateJSONWebToken(LoginRequest userInfo)
+        {
+            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
+            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
+
+            var claimsList = new List<Claim>();
+
+            foreach (RoleResponse role in userInfo.Roles)
+            {
+                claimsList.Add(new Claim(ClaimTypes.Role, role.RoleName));
+            };
+
+            var token = new JwtSecurityToken(
+                issuer: _config["Jwt:Issuer"],
+                audience: _config["Jwt:Issuer"],
+                claims: claimsList,
+                expires: DateTime.Now.AddMinutes(120),
+                signingCredentials: credentials);
+
+            return new JwtSecurityTokenHandler().WriteToken(token);
+        }
     }
+    
 }

@@ -24,7 +24,6 @@ namespace Vouchee.Business.RequestModels.User
 
         public Guid? ShopId { get; set; }
 
-        [Required]
-        public Guid WalletId { get; set; }
+        public Guid? WalletId { get; set; }
     }
 }

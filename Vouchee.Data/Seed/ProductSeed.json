@@ -1,0 +1,92 @@
+[
+  {
+    "ProductName": "Smartphone X",
+    "ProductDescription": "High-performance smartphone with advanced features",
+    "ProductPrice": 999.99,
+    "ProductDiscountPrice": 899.99,
+    "Amount": 100,
+    "StartDateTime": "2024-07-01T00:00:00",
+    "EndDateTime": "2024-12-31T23:59:59",
+    "ProductPolicy": "Return within 30 days with original packaging.",
+    "ProductCode": "PROD001",
+    "ProductCodeImage": "https://example.com/product/prod001.jpg",
+    "CreatedDate": "2024-06-21T09:00:00",
+    "CreatedBy": "00000000-0000-0000-0000-000000000001",
+    "Users": [],
+    "Comments": [],
+    "Discounts": [],
+    "Ratings": [],
+    "Tags": [
+      {
+        "TagName": "abc"
+      }
+    ],
+    "Categories": [
+      {
+        "CategoryId": "00000000-0000-0000-0000-000000000001",
+        "CategoryTitle": "Electronics",
+        "CategoryDescription": "Electronic gadgets and appliances"
+      }
+    ]
+  },
+  {
+    "ProductName": "Laptop Y",
+    "ProductDescription": "Slim and lightweight laptop for professional use",
+    "ProductPrice": 1499.99,
+    "ProductDiscountPrice": 1399.99,
+    "Amount": 50,
+    "StartDateTime": "2024-07-01T00:00:00",
+    "EndDateTime": "2024-12-31T23:59:59",
+    "ProductPolicy": "Warranty for 1 year covering hardware defects.",
+    "ProductCode": "PROD002",
+    "ProductCodeImage": "https://example.com/product/prod002.jpg",
+    "CreatedDate": "2024-06-21T10:00:00",
+    "CreatedBy": "00000000-0000-0000-0000-000000000002",
+    "Users": [],
+    "Comments": [],
+    "Discounts": [],
+    "Ratings": [],
+    "Tags": [
+      {
+        "TagName": "abc"
+      }
+    ],
+    "Categories": [
+      {
+        "CategoryId": "00000000-0000-0000-0000-000000000002",
+        "CategoryTitle": "Computers",
+        "CategoryDescription": "Laptops, desktops, and accessories"
+      }
+    ]
+  },
+  {
+    "ProductName": "Wireless Headphones Z",
+    "ProductDescription": "Noise-cancelling over-ear headphones",
+    "ProductPrice": 299.99,
+    "ProductDiscountPrice": 249.99,
+    "Amount": 200,
+    "StartDateTime": "2024-07-01T00:00:00",
+    "EndDateTime": "2024-12-31T23:59:59",
+    "ProductPolicy": "2-year warranty with free replacements.",
+    "ProductCode": "PROD003",
+    "ProductCodeImage": "https://example.com/product/prod003.jpg",
+    "CreatedDate": "2024-06-21T11:00:00",
+    "CreatedBy": "00000000-0000-0000-0000-000000000003",
+    "Users": [],
+    "Comments": [],
+    "Discounts": [],
+    "Ratings": [],
+    "Tags": [
+      {
+        "TagName": "abc"
+      }
+    ],
+    "Categories": [
+      {
+        "CategoryId": "00000000-0000-0000-0000-000000000003",
+        "CategoryTitle": "Accessories",
+        "CategoryDescription": "Audio and video accessories"
+      }
+    ]
+  }
+]

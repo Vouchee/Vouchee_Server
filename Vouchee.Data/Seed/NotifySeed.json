@@ -1,0 +1,24 @@
+[
+  {
+    "Title": "New Promotion!",
+    "Description": "Check out our latest promotion on electronics!",
+    "CreatedDate": "2023-07-15T08:30:00",
+    "CreatedBy": "00000000-0000-0000-0000-000000000005",
+    "UserId": "00000000-0000-0000-0000-000000000001"
+  },
+  {
+    "Title": "Holiday Closure Notice",
+    "Description": "Our store will be closed on Christmas Day.",
+    "CreatedDate": "2023-11-20T13:45:00",
+    "CreatedBy": "00000000-0000-0000-0000-000000000006",
+    "UserId": "00000000-0000-0000-0000-000000000002"
+  },
+  {
+    "Title": "Important Update: Shipping Delays",
+    "Description": "Due to inclement weather, shipping may experience delays.",
+    "CreatedDate": "2023-10-05T15:30:00",
+    "CreatedBy": "00000000-0000-0000-0000-000000000008",
+    "UserId": "00000000-0000-0000-0000-000000000003"
+  }
+
+]
