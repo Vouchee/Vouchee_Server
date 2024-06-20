@@ -23,15 +23,6 @@ namespace Vouchee.Data.Models.Entities
         [StringLength(100)]
         public string Fullname { get; set; }
 
-        [Required(ErrorMessage = "The Email field is required.")]
-        [EmailAddress(ErrorMessage = "Invalid Email Address.")]
-        [DataType(DataType.EmailAddress)]
-        public string Email {  get; set; }
-        [Required(ErrorMessage ="The User Name is required")]
-        public string UserName {  get; set; }
-        [Required(ErrorMessage = "The Password is required")]
-        [DataType(DataType.Password)]
-        public string UserPassword { get; set; }
         [Required]
         public int Gender { get; set; }
 
@@ -42,7 +33,8 @@ namespace Vouchee.Data.Models.Entities
 
         public virtual Shop? Shop { get; set; }
 
-        public Guid? WalletId { get; set; }
+        [Required]
+        public Guid WalletId { get; set; }
 
         public virtual Wallet Wallet { get; set; }
 
