@@ -14,11 +14,11 @@ namespace Vouchee.Business.FilterModels
     {
         public UserFilter()
         {
-            Notifies = new HashSet<NotifyFilter>();
+            /*Notifies = new HashSet<NotifyFilter>();
             Transactions = new HashSet<TransactionFilter>();
             Products = new HashSet<ProductFilter>();
             Roles = new HashSet<RoleFilter>();
-            Comments = new HashSet<CommentFilter>();
+            Comments = new HashSet<CommentFilter>();*/
         }
 
         public Guid? UserId { get; set; }
@@ -37,7 +37,7 @@ namespace Vouchee.Business.FilterModels
 
         public virtual WalletFilter? Wallet { get; set; }
 
-        public virtual ICollection<NotifyFilter>? Notifies { get; set; }
+        /*public virtual ICollection<NotifyFilter>? Notifies { get; set; }
 
         public virtual ICollection<RoleFilter>? Roles { get; set; }
 
@@ -45,6 +45,6 @@ namespace Vouchee.Business.FilterModels
 
         public virtual ICollection<ProductFilter>? Products { get; set; }
 
-        public virtual ICollection<CommentFilter>? Comments { get; set; }
+        public virtual ICollection<CommentFilter>? Comments { get; set; }*/
     }
 }

@@ -15,6 +15,7 @@ using Vouchee.Data.Repositories.Interfaces;
 using Vouchee.Data.Models.Constants;
 using AutoMapper.QueryableExtensions;
 using Vouchee.Business.Helpers;
+using Vouchee.Data.Repositories.Repos;
 
 namespace Vouchee.Business.Services.Impls
 {
@@ -135,10 +136,14 @@ namespace Vouchee.Business.Services.Impls
             (int, IQueryable<LocationResponse>) result;
             try
             {
-                result = _locationRepo.GetAllAsync().Result
-                    .ProjectTo<LocationResponse>(_mapper.ConfigurationProvider)
-                    .DynamicFilter(_mapper.Map<LocationResponse>(request))
-                    .PagingIQueryable(paging.Page, paging.PageSize, StringConstant.LimitPaging, StringConstant.DefaultPaging);
+                var query = _locationRepo.GetAllAsync().Result;
+                var filtercheck = request.GetType().GetProperties().All(p => p.GetValue(request) != null);
+                var mappedRequest = filtercheck ? _mapper.Map<LocationResponse>(request) : null;
+                var filteredQuery = mappedRequest != null
+                    ? query.ProjectTo<LocationResponse>(_mapper.ConfigurationProvider).DynamicFilter(mappedRequest)
+                    : query.ProjectTo<LocationResponse>(_mapper.ConfigurationProvider);
+
+                result = filteredQuery.PagingIQueryable(paging.Page, paging.PageSize, StringConstant.LimitPaging, StringConstant.DefaultPaging);
 
                 if (result.Item2.ToList().Count() == 0)
                 {

@@ -25,6 +25,6 @@ namespace Vouchee.Business.FilterModels
 
         public Guid? UserId { get; set; }
 
-        public virtual UserFilter? User { get; set; }
+        /*public virtual UserFilter? User { get; set; }*/
     }
 }

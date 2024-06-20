@@ -13,13 +13,13 @@ namespace Vouchee.Business.FilterModels
     {
         public RoleFilter()
         {
-            Users = new HashSet<UserFilter>();
+            /*Users = new HashSet<UserFilter>();*/
         }
 
         public Guid? RoleId { get; set; }
 
         public string? RoleName { get; set; }
 
-        public virtual ICollection<UserFilter>? Users { get; set; }
+        /*public virtual ICollection<UserFilter>? Users { get; set; }*/
     }
 }
