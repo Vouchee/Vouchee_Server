@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Vouchee.Data.Helpers;
 
@@ -11,9 +12,11 @@ using Vouchee.Data.Helpers;
 namespace Vouchee.Data.Migrations
 {
     [DbContext(typeof(VoucheeContext))]
-    partial class VoucheeContextModelSnapshot : ModelSnapshot
+    [Migration("20240620045633_AddIdentity")]
+    partial class AddIdentity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -168,6 +171,21 @@ namespace Vouchee.Data.Migrations
                     b.HasIndex("ShopsShopId");
 
                     b.ToTable("PromotionShop");
+                });
+
+            modelBuilder.Entity("RoleUser", b =>
+                {
+                    b.Property<Guid>("RolesId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("UsersId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("RolesId", "UsersId");
+
+                    b.HasIndex("UsersId");
+
+                    b.ToTable("RoleUser");
                 });
 
             modelBuilder.Entity("Vouchee.Data.Models.Entities.Category", b =>
@@ -580,32 +598,6 @@ namespace Vouchee.Data.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("75633c19-d23a-4b64-9a0a-ca6040d146b5"),
-                            Name = "Admin",
-                            NormalizedName = "ADMIN"
-                        },
-                        new
-                        {
-                            Id = new Guid("0afdc54a-cd33-4a96-8d40-4363f04641b0"),
-                            Name = "Customer",
-                            NormalizedName = "CUSTOMER"
-                        },
-                        new
-                        {
-                            Id = new Guid("7d33b111-3114-4bab-802e-4c78a8c6fdca"),
-                            Name = "Shop",
-                            NormalizedName = "SHOP"
-                        },
-                        new
-                        {
-                            Id = new Guid("9a5cffcc-5906-4354-998b-5b9e639c8d03"),
-                            Name = "Staff",
-                            NormalizedName = "STAFF"
-                        });
                 });
 
             modelBuilder.Entity("Vouchee.Data.Models.Entities.Shop", b =>
@@ -945,6 +937,21 @@ namespace Vouchee.Data.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("RoleUser", b =>
+                {
+                    b.HasOne("Vouchee.Data.Models.Entities.Role", null)
+                        .WithMany()
+                        .HasForeignKey("RolesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Vouchee.Data.Models.Entities.User", null)
+                        .WithMany()
+                        .HasForeignKey("UsersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Vouchee.Data.Models.Entities.Comment", b =>
                 {
                     b.HasOne("Vouchee.Data.Models.Entities.Product", "Product")
@@ -1054,7 +1061,7 @@ namespace Vouchee.Data.Migrations
                         .IsRequired();
 
                     b.HasOne("Vouchee.Data.Models.Entities.User", "User")
-                        .WithMany("Roles")
+                        .WithMany()
                         .HasForeignKey("UserId1");
 
                     b.Navigation("Role");
@@ -1094,8 +1101,6 @@ namespace Vouchee.Data.Migrations
                     b.Navigation("Comments");
 
                     b.Navigation("Notifies");
-
-                    b.Navigation("Roles");
 
                     b.Navigation("Shop");
 
