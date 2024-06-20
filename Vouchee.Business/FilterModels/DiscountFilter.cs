@@ -38,6 +38,6 @@ namespace Vouchee.Business.FilterModels
 
         public Guid? ProductId { get; set; }
 
-        public virtual ProductFilter? Product { get; set; }
+        /*public virtual ProductFilter? Product { get; set; }*/
     }
 }

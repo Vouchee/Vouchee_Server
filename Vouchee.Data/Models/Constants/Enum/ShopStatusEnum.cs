@@ -8,5 +8,8 @@ namespace Vouchee.Data.Models.Constants.Enum
 {
     public enum ShopStatusEnum
     {
+        Block,
+        Online,
+        Offline
     }
 }

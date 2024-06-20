@@ -1,13 +1,62 @@
-{
-  "compilerOptions": {
-    "noImplicitAny": false,
-    "noEmitOnError": true,
-    "removeComments": false,
-    "sourceMap": true,
-    "target": "es5"
+[
+  {
+    "ShopId": "00000000-0000-0000-0000-000000000001",
+    "ShopName": "Cửa Hàng Công Nghệ",
+    "ShopTitle": "Sản Phẩm Công Nghệ Tốt Nhất",
+    "ShopDescription": "Cửa hàng bán các sản phẩm công nghệ mới nhất.",
+    "PercentShow": 0.95,
+    "ResponsibilityScore": 80,
+    "CreatedDate": "2024-06-01T00:00:00",
+    "CreatedBy": "00000000-0000-0000-0000-000000000001",
+    "UpdatedDate": null,
+    "UpdatedBy": null,
+    "UserId": "00000000-0000-0000-0000-000000000001",
+    "Images": [],
+    "Locations": [
+      {
+        "LocationId": "00000000-0000-0000-0000-000000000001",
+        "LocationCity": "Hà Nội",
+        "LocationDistrict": "Quận Hoàn Kiếm",
+        "LocationWard": "Phường Hàng Bạc",
+        "LocationStreet": "Phố Hàng Ngang",
+        "LocationDetails": "Gần Hồ Hoàn Kiếm",
+        "CreatedDate": "2024-06-01T00:00:00",
+        "CreatedBy": "00000000-0000-0000-0000-000000000001",
+        "UpdatedDate": null,
+        "UpdatedBy": null,
+        "ShopId": "00000000-0000-0000-0000-000000000001"
+      }
+    ],
+    "Promotions": []
   },
-  "exclude": [
-    "node_modules",
-    "wwwroot"
-  ]
-}
+  {
+    "ShopId": "00000000-0000-0000-0000-000000000002",
+    "ShopName": "Cửa Hàng Sách",
+    "ShopTitle": "Những Cuốn Sách Hay Nhất",
+    "ShopDescription": "Cửa hàng bán nhiều loại sách khác nhau.",
+    "PercentShow": 0.85,
+    "ResponsibilityScore": 90,
+    "CreatedDate": "2024-06-01T00:00:00",
+    "CreatedBy": "00000000-0000-0000-0000-000000000002",
+    "UpdatedDate": null,
+    "UpdatedBy": null,
+    "UserId": "00000000-0000-0000-0000-000000000002",
+    "Images": [],
+    "Locations": [
+      {
+        "LocationId": "00000000-0000-0000-0000-000000000002",
+        "LocationCity": "TP. Hồ Chí Minh",
+        "LocationDistrict": "Quận 1",
+        "LocationWard": "Phường Bến Nghé",
+        "LocationStreet": "Đường Nguyễn Huệ",
+        "LocationDetails": "Gần Nhà Thờ Đức Bà",
+        "CreatedDate": "2024-06-01T00:00:00",
+        "CreatedBy": "00000000-0000-0000-0000-000000000002",
+        "UpdatedDate": null,
+        "UpdatedBy": null,
+        "ShopId": "00000000-0000-0000-0000-000000000002"
+      }
+    ],
+    "Promotions": []
+  }
+]

@@ -13,13 +13,13 @@ namespace Vouchee.Business.FilterModels
     {
         public TagFilter()
         {
-            Products = new HashSet<ProductFilter>();
+           /* Products = new HashSet<ProductFilter>();*/
         }
 
         public Guid? TagId { get; set; }
 
         public string? TagName { get; set; }
 
-        public virtual ICollection<ProductFilter> Products { get; set; }
+        /*public virtual ICollection<ProductFilter> Products { get; set; }*/
     }
 }

@@ -166,7 +166,37 @@ namespace Vouchee.Data.Seed
 
             foreach (var Shop in Shops)
             {
+                Shop.ShopStatus = ShopStatusEnum.Block;
                 await _context.Shops.AddAsync(Shop);
+                await _context.SaveChangesAsync();
+            }
+        }
+        public static async Task SeedUser(VoucheeContext _context)
+        {
+            if (await _context.Users.AnyAsync()) return;
+
+            var userData = await File.ReadAllTextAsync("../Vouchee.Data/Seed/UserSeed.json");
+            var jsonOptions = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+            var users = JsonSerializer.Deserialize<List<User>>(userData, jsonOptions);
+
+            foreach (var user in users)
+            {
+                user.UserStatusEnum = UserStatusEnum.Unknown;
+                await _context.Users.AddAsync(user);
+                await _context.SaveChangesAsync();
+            }
+        }
+        public static async Task SeedWallet(VoucheeContext _context)
+        {
+            if (await _context.Wallets.AnyAsync()) return;
+
+            var walletData = await File.ReadAllTextAsync("../Vouchee.Data/Seed/WalletSeed.json");
+            var jsonOptions = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+            var wallets = JsonSerializer.Deserialize<List<Wallet>>(walletData, jsonOptions);
+
+            foreach (var wallet in wallets)
+            {
+                await _context.Wallets.AddAsync(wallet);
                 await _context.SaveChangesAsync();
             }
         }

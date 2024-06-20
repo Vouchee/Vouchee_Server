@@ -74,15 +74,17 @@ try
     var context = services.GetRequiredService<VoucheeContext>();
     await context.Database.MigrateAsync();
     await Seed.SeedCategory(context);
-    await Seed.SeedComment(context);
-    await Seed.SeedDiscount(context);
-    await Seed.SeedImage(context);
-    await Seed.SeedLocation(context);
-    await Seed.SeedNotify(context);
-    await Seed.SeedProduct(context);
-    await Seed.SeedPromotion(context);
-    await Seed.SeedRating(context);
+    await Seed.SeedUser(context);
+    await Seed.SeedWallet(context);
     await Seed.SeedShop(context);
+    // await Seed.SeedComment(context);
+    // await Seed.SeedDiscount(context);
+    // await Seed.SeedImage(context);
+    // await Seed.SeedNotify(context);
+    await Seed.SeedProduct(context);
+    // await Seed.SeedPromotion(context);
+    // await Seed.SeedRating(context);
+    
 }
 catch (Exception ex)
 {

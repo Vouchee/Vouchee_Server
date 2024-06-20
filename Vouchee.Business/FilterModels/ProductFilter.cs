@@ -13,10 +13,10 @@ namespace Vouchee.Business.FilterModels
     {
         public ProductFilter()
         {
-            Users = new HashSet<UserFilter>();
+            /*Users = new HashSet<UserFilter>();
             Comments = new HashSet<CommentFilter>();
             Discounts = new HashSet<DiscountFilter>();
-            Ratings = new HashSet<RatingFilter>();
+            Ratings = new HashSet<RatingFilter>();*/
             Tags = new HashSet<TagFilter>();
             Categories = new HashSet<CategoryFilter>();
         }
@@ -51,13 +51,13 @@ namespace Vouchee.Business.FilterModels
 
         public Guid? UpdatedBy { get; set; }
 
-        public virtual ICollection<UserFilter>? Users { get; set; }
+        /*public virtual ICollection<UserFilter>? Users { get; set; }
 
         public virtual ICollection<CommentFilter>? Comments { get; set; }
 
         public virtual ICollection<DiscountFilter>? Discounts { get; set; }
 
-        public virtual ICollection<RatingFilter>? Ratings { get; set; }
+        public virtual ICollection<RatingFilter>? Ratings { get; set; }*/
 
         public virtual ICollection<TagFilter>? Tags { get; set; }
 

@@ -14,9 +14,9 @@ namespace Vouchee.Business.FilterModels
     {
         public ShopFilter()
         {
-            Images = new HashSet<ImageFilter>();
+            /*Images = new HashSet<ImageFilter>();
             Locations = new HashSet<LocationFilter>();
-            Promotions = new HashSet<PromotionFilter>();
+            Promotions = new HashSet<PromotionFilter>();*/
         }
 
         public Guid? ShopId { get; set; }
@@ -43,12 +43,12 @@ namespace Vouchee.Business.FilterModels
 
         public Guid? UserId { get; set; }
 
-        public virtual UserFilter? User { get; set; }
+        /*public virtual UserFilter? User { get; set; }
 
         public virtual ICollection<ImageFilter>? Images { get; set; }
 
         public virtual ICollection<LocationFilter>? Locations { get; set; }
 
-        public virtual ICollection<PromotionFilter>? Promotions { get; set; }
+        public virtual ICollection<PromotionFilter>? Promotions { get; set; }*/
     }
 }
