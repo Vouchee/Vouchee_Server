@@ -2,25 +2,22 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Identity;
 using Vouchee.Data.Models.Constants.Enum;
 
 namespace Vouchee.Data.Models.Entities
 {
-    [Table("User")]
-    public class User
+    public class User : IdentityUser<Guid>
     {
+        
         public User()
         {
             Notifies = new HashSet<Notify>();
             Transactions = new HashSet<Transaction>();
             Products = new HashSet<Product>();
-            Roles = new HashSet<Role>();
+            Roles = new HashSet<UserRole>();
             Comments = new HashSet<Comment>();
         }
-
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid UserId { get; set; }
 
         [Required]
         [StringLength(100)]
@@ -44,7 +41,7 @@ namespace Vouchee.Data.Models.Entities
         public virtual ICollection<Notify>? Notifies { get; set; }
 
         [Required]
-        public virtual ICollection<Role> Roles { get; set; }
+        public ICollection<UserRole> Roles { get; set; } = new List<UserRole>();
 
         public virtual ICollection<Transaction>? Transactions { get; set; }
         public virtual ICollection<Product>? Products { get; set; }

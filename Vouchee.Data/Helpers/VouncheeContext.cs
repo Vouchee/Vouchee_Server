@@ -5,11 +5,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Vouchee.Data.Models.Constants.Enum;
 using Vouchee.Data.Models.Entities;
 
 namespace Vouchee.Data.Helpers
 {
-    public class VoucheeContext : DbContext
+    public class VoucheeContext : IdentityDbContext<User, Role,
+        Guid, IdentityUserClaim<Guid>, UserRole, IdentityUserLogin<Guid>,
+        IdentityRoleClaim<Guid>, IdentityUserToken<Guid>>
     {
         public VoucheeContext() 
         { 
@@ -39,15 +44,8 @@ namespace Vouchee.Data.Helpers
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            if (!optionsBuilder.IsConfigured)
-            {
-                optionsBuilder.UseLazyLoadingProxies();
-                var builder = new ConfigurationBuilder()
-                            .SetBasePath(Directory.GetCurrentDirectory())
-                            .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
-                IConfigurationRoot configuration = builder.Build();
-                optionsBuilder.UseSqlServer(configuration.GetConnectionString("VoucheeDB"));
-            }
+            optionsBuilder.UseSqlServer("Server=localhost;Database=Vouchee;Trusted_Connection=false;user=sa;pwd=123456@Aa;TrustServerCertificate=True");
+
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -56,11 +54,47 @@ namespace Vouchee.Data.Helpers
                 .HasOne(u => u.Shop)
                 .WithOne(s => s.User)
                 .HasForeignKey<Shop>(s => s.UserId);
+            
+            modelBuilder.Entity<User>().HasMany(u => u.Roles)
+                .WithOne(u => u.User)
+                .HasForeignKey(u => u.UserId)
+                .IsRequired();
 
             modelBuilder.Entity<User>()
                 .HasOne(u => u.Wallet)
                 .WithOne(w => w.User)
                 .HasForeignKey<Wallet>(w => w.UserId); 
+            
+           modelBuilder.Entity<Role>().HasMany(r => r.Roles)
+               .WithOne(r => r.Role)
+               .HasForeignKey(r => r.RoleId)
+               .IsRequired();
+           modelBuilder.Entity<Role>().HasData(new Role
+               {
+                   Id = Guid.NewGuid(),
+                   Name = SystemRole.Admin.ToString(),
+                   NormalizedName = SystemRole.Admin.ToString().ToUpper(),
+               },
+               new Role
+               {
+                   Id = Guid.NewGuid(),
+                   Name = SystemRole.Customer.ToString(),
+                   NormalizedName = SystemRole.Customer.ToString().ToUpper(),
+               },
+               new Role
+               {
+                   Id = Guid.NewGuid(),
+                   Name = SystemRole.Shop.ToString(),
+                   NormalizedName = SystemRole.Shop.ToString().ToUpper(),
+               },
+               new Role
+               {
+                   Id = Guid.NewGuid(),
+                   Name = SystemRole.Staff.ToString(),
+                   NormalizedName = SystemRole.Staff.ToString().ToUpper(),
+               }
+           );
+               
 
             base.OnModelCreating(modelBuilder);
         }
