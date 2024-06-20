@@ -2,15 +2,10 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using System.Text;
 using Vouchee.API.AppStarts;
 using Vouchee.Data.Helpers;
 using Vouchee.Data.Models.Entities;
 using Vouchee.Data.Seed;
-using Microsoft.IdentityModel.Tokens;
-using Vouchee.API.AppStarts;
-using Vouchee.Data.Helpers;
-using Vouchee.Data.Models.Entities;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -58,24 +53,6 @@ builder.Services.AddCors(c =>
         options.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
 });
 #endregion
-/*builder.Services.AddIdentity<User, IdentityRole>()
-    .AddSignInManager()
-    .AddRoles<IdentityRole>();*/
-
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-        .AddJwtBearer(options =>
-        {
-            options.TokenValidationParameters = new TokenValidationParameters
-            {
-                ValidateIssuer = true,
-                ValidateAudience = true,
-                ValidateLifetime = true,
-                ValidateIssuerSigningKey = true,
-                ValidIssuer = builder.Configuration["Jwt:Issuer"],
-                ValidAudience = builder.Configuration["Jwt:Issuer"],
-                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
-            };
-        });
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
@@ -90,23 +67,22 @@ app.UseSwaggerUI();
 app.UseCors();
 
 app.MapControllers();
-
 using var scope = app.Services.CreateScope();
 var services = scope.ServiceProvider;
 try
 {
     var context = services.GetRequiredService<VoucheeContext>();
     await context.Database.MigrateAsync();
-    /*await Seed.SeedCategory(context);*/
-    /*await Seed.SeedComment(context);
-    await Seed.SeedDiscount(context);
-    await Seed.SeedImage(context);
-    await Seed.SeedLocation(context);
-    await Seed.SeedNotify(context);*/
+    await Seed.SeedCategory(context);
+    // await Seed.SeedComment(context);
+    // await Seed.SeedDiscount(context);
+    // await Seed.SeedImage(context);
+    // await Seed.SeedLocation(context);
+    // await Seed.SeedNotify(context);
     await Seed.SeedProduct(context);
-    /*await Seed.SeedPromotion(context);
-    await Seed.SeedRating(context);
-    await Seed.SeedShop(context);*/
+    // await Seed.SeedPromotion(context);
+    // await Seed.SeedRating(context);
+    // await Seed.SeedShop(context);
 }
 catch (Exception ex)
 {

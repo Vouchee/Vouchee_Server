@@ -45,7 +45,7 @@ namespace Vouchee.Data.Helpers
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
 
-            optionsBuilder.UseSqlServer("Server=localhost;Database=Vouchee;Trusted_Connection=false;user=sa;pwd=123456@Aa;TrustServerCertificate=True");
+            // optionsBuilder.UseSqlServer("Server=localhost;Database=Vouchee;Trusted_Connection=false;user=sa;pwd=123456@Aa;TrustServerCertificate=True");
 
         }
 
@@ -66,10 +66,10 @@ namespace Vouchee.Data.Helpers
                 .WithOne(w => w.User)
                 .HasForeignKey<Wallet>(w => w.UserId); 
             
-           modelBuilder.Entity<Role>().HasMany(r => r.Roles)
-               .WithOne(r => r.Role)
-               .HasForeignKey(r => r.RoleId)
-               .IsRequired();
+            modelBuilder.Entity<Role>().HasMany(r => r.Roles)
+                .WithOne(r => r.Role)
+                .HasForeignKey(r => r.RoleId)
+                .IsRequired();
            modelBuilder.Entity<Role>().HasData(new Role
                {
                    Id = Guid.NewGuid(),

@@ -6,7 +6,6 @@ using Vouchee.Business.RequestModels.Helpers;
 using Vouchee.Business.ResponseModels.Helpers;
 using Vouchee.Business.ResponseModels;
 using Vouchee.Business.Services.Interfaces;
-using Microsoft.AspNetCore.Authorization;
 
 namespace Vouchee.API.Controllers
 {
@@ -50,13 +49,6 @@ namespace Vouchee.API.Controllers
         public async Task<ResponseResult<UserResponse>> DeleteUser(Guid id)
         {
             return await _service.DeleteUser(id);
-        }
-
-        [HttpPost("Login")]
-        [AllowAnonymous]
-        public async Task<ResponseResult<LoginRequest>> Login([FromBody] LoginRequest login)
-        {
-            return await _service.Login(login);
         }
     }
 }
