@@ -11,5 +11,7 @@ namespace Vouchee.Business.ResponseModels.Helpers
         public string? Message { get; set; }
         public T? Value { get; set; }
         public bool? Result { get; set; }
+
+        public string? Response {  get; set; }
     }
 }

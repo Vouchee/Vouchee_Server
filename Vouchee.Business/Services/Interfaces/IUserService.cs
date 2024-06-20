@@ -19,5 +19,6 @@ namespace Vouchee.Business.Services.Interfaces
         public Task<ResponseResult<UserResponse>> DeleteUser(Guid id);
         public Task<ResponseResult<UserResponse>> CreateUser(CreateUserRequest request);
         public Task<DynamicModelsResponse<UserResponse>> GetUsers(UserFilter request, PagingRequest paging);
+        public Task<ResponseResult<LoginRequest>> Login(LoginRequest login);
     }
 }

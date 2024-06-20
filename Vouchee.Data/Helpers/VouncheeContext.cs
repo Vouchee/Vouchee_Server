@@ -46,7 +46,8 @@ namespace Vouchee.Data.Helpers
                             .SetBasePath(Directory.GetCurrentDirectory())
                             .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
                 IConfigurationRoot configuration = builder.Build();
-                optionsBuilder.UseSqlServer(configuration.GetConnectionString("VoucheeDB"));
+                optionsBuilder.UseSqlServer(configuration.GetConnectionString("VouncheeDB"));
+                /*optionsBuilder.UseSqlServer("Server=(local);uid=sa;pwd=12345;database=Vouchee;TrustServerCertificate=True");*/
             }
         }
 
