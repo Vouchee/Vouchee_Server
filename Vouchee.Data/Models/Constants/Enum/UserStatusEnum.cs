@@ -8,5 +8,8 @@ namespace Vouchee.Data.Models.Constants.Enum
 {
     public enum UserStatusEnum
     {
+        Unknown,
+        Online,
+        Offline
     }
 }
