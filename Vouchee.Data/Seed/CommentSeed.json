@@ -1,0 +1,32 @@
+[
+  {
+    "Description": "Great product, highly recommended!",
+    "CommentStatus": 1,
+    "CreatedDate": "2024-06-20T10:00:00Z",
+    "CreatedBy": "79a0f28c-b2a8-4c70-b65e-8ff93d1a56f3",
+    "UpdatedDate": null,
+    "UpdatedBy": null,
+    "UserId": "79a0f28c-b2a8-4c70-b65e-8ff93d1a56f3",
+    "ProductId": "5f6b3a35-e2b0-4f4d-8b4c-0362a7932a1e"
+  },
+  {
+    "Description": "Needs improvement, didn't meet my expectations.",
+    "CommentStatus": 2,
+    "CreatedDate": "2024-06-19T15:30:00Z",
+    "CreatedBy": "cc1b61f8-6712-4f9d-b4a4-0a1e15d0bf54",
+    "UpdatedDate": "2024-06-20T09:45:00Z",
+    "UpdatedBy": "79a0f28c-b2a8-4c70-b65e-8ff93d1a56f3",
+    "UserId": "cc1b61f8-6712-4f9d-b4a4-0a1e15d0bf54",
+    "ProductId": "a9d12c9b-3a2d-432f-aa9b-4a4b88c627b2"
+  },
+  {
+    "Description": "Prompt delivery, satisfied with the service.",
+    "CommentStatus": 1,
+    "CreatedDate": "2024-06-18T08:45:00Z",
+    "CreatedBy": "1fde75ab-58c0-4c1e-81a4-0f0ed29f5d8a",
+    "UpdatedDate": null,
+    "UpdatedBy": null,
+    "UserId": "1fde75ab-58c0-4c1e-81a4-0f0ed29f5d8a",
+    "ProductId": "5f6b3a35-e2b0-4f4d-8b4c-0362a7932a1e"
+  }
+]

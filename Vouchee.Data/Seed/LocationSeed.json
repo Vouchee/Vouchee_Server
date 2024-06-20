@@ -1,0 +1,32 @@
+[
+  {
+    "LocationCity": "Ho Chi Minh City",
+    "LocationDistrict": "District 1",
+    "LocationWard": "Ben Nghe",
+    "LocationStreet": "Nguyen Hue Street",
+    "LocationDetails": "Building A, Floor 10",
+    "CreatedDate": "2023-05-15T10:00:00",
+    "CreatedBy": "00000000-0000-0000-0000-000000000001",
+    "ShopId": "00000000-0000-0000-0000-000000000001"
+  },
+  {
+    "LocationCity": "Hanoi",
+    "LocationDistrict": "Ba Dinh",
+    "LocationWard": "Quan Thanh",
+    "LocationStreet": "Thuy Khue Street",
+    "LocationDetails": "Apartment B, Floor 5",
+    "CreatedDate": "2023-06-20T08:30:00",
+    "CreatedBy": "00000000-0000-0000-0000-000000000002",
+    "ShopId": "00000000-0000-0000-0000-000000000002"
+  },
+  {
+    "LocationCity": "Da Nang",
+    "LocationDistrict": "Hai Chau",
+    "LocationWard": "Thach Thang",
+    "LocationStreet": "Nguyen Van Linh Street",
+    "LocationDetails": "Unit 302, Floor 3",
+    "CreatedDate": "2023-08-10T09:45:00",
+    "CreatedBy": "00000000-0000-0000-0000-000000000003",
+    "ShopId": "00000000-0000-0000-0000-000000000003"
+  }
+]

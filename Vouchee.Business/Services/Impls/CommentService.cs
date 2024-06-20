@@ -15,6 +15,7 @@ using Vouchee.Data.Repositories.Interfaces;
 using Vouchee.Data.Models.Constants;
 using AutoMapper.QueryableExtensions;
 using Vouchee.Business.Helpers;
+using Vouchee.Data.Repositories.Impls;
 
 namespace Vouchee.Business.Services.Impls
 {
@@ -135,12 +136,16 @@ namespace Vouchee.Business.Services.Impls
             (int, IQueryable<CommentResponse>) result;
             try
             {
-                result = _commentRepo.GetAllAsync().Result
-                    .ProjectTo<CommentResponse>(_mapper.ConfigurationProvider)
-                    .DynamicFilter(_mapper.Map<CommentResponse>(request))
-                    .PagingIQueryable(paging.Page, paging.PageSize, StringConstant.LimitPaging, StringConstant.DefaultPaging);
+                var query = _commentRepo.GetAllAsync().Result;
+                var filtercheck = request.GetType().GetProperties().All(p => p.GetValue(request) != null);
+                var mappedRequest = filtercheck ? _mapper.Map<CommentResponse>(request) : null;
+                var filteredQuery = mappedRequest != null
+                    ? query.ProjectTo<CommentResponse>(_mapper.ConfigurationProvider).DynamicFilter(mappedRequest)
+                    : query.ProjectTo<CommentResponse>(_mapper.ConfigurationProvider);
 
-                if (result.Item2.ToList().Count() == 0)
+                result = filteredQuery.PagingIQueryable(paging.Page, paging.PageSize, StringConstant.LimitPaging, StringConstant.DefaultPaging);
+
+                if (!result.Item2.Any())
                 {
                     return new DynamicModelResponse.DynamicModelsResponse<CommentResponse>()
                     {

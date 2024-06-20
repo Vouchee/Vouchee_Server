@@ -1,0 +1,52 @@
+[
+  {
+    "RatingTitle": "Excellent Product",
+    "RatingType": "Positive",
+    "RatingContent": "I am extremely satisfied with this product. It exceeded my expectations!",
+    "CreatedDate": "2024-06-20T09:00:00",
+    "CreatedBy": "00000000-0000-0000-0000-000000000001",
+    "UpdatedDate": null,
+    "UpdatedBy": null,
+    "ProductId": "00000000-0000-0000-0000-000000000001"
+  },
+  {
+    "RatingTitle": "Good Value",
+    "RatingType": "Positive",
+    "RatingContent": "The product offers good value for money. Would recommend!",
+    "CreatedDate": "2024-06-21T10:00:00",
+    "CreatedBy": "00000000-0000-0000-0000-000000000002",
+    "UpdatedDate": null,
+    "UpdatedBy": null,
+    "ProductId": "00000000-0000-0000-0000-000000000002"
+  },
+  {
+    "RatingTitle": "Average",
+    "RatingType": "Neutral",
+    "RatingContent": "The product is okay. It works as described but nothing exceptional.",
+    "CreatedDate": "2024-06-22T11:00:00",
+    "CreatedBy": "00000000-0000-0000-0000-000000000003",
+    "UpdatedDate": null,
+    "UpdatedBy": null,
+    "ProductId": "00000000-0000-0000-0000-000000000003"
+  },
+  {
+    "RatingTitle": "Poor Quality",
+    "RatingType": "Negative",
+    "RatingContent": "The product did not meet my expectations. Poor quality and not worth the price.",
+    "CreatedDate": "2024-06-23T12:00:00",
+    "CreatedBy": "00000000-0000-0000-0000-000000000004",
+    "UpdatedDate": null,
+    "UpdatedBy": null,
+    "ProductId": "00000000-0000-0000-0000-000000000004"
+  },
+  {
+    "RatingTitle": "Highly Disappointed",
+    "RatingType": "Negative",
+    "RatingContent": "Very disappointed with this product. Would not recommend.",
+    "CreatedDate": "2024-06-24T13:00:00",
+    "CreatedBy": "00000000-0000-0000-0000-000000000005",
+    "UpdatedDate": null,
+    "UpdatedBy": null,
+    "ProductId": "00000000-0000-0000-0000-000000000005"
+  }
+]

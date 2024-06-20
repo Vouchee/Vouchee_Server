@@ -8,5 +8,7 @@ namespace Vouchee.Data.Models.Constants.Enum
 {
     public enum ImageType
     {
+        Avatar,
+        BackGround
     }
 }

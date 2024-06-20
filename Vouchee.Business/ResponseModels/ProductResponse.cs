@@ -13,10 +13,10 @@ namespace Vouchee.Business.ResponseModels
     {
         public ProductResponse()
         {
-            Users = new HashSet<UserResponse>();
-            Comments = new HashSet<CommentResponse>();
+            /*Users = new HashSet<UserResponse>();*/
+            /*Comments = new HashSet<CommentResponse>();
             Discounts = new HashSet<DiscountResponse>();
-            Ratings = new HashSet<RatingResponse>();
+            Ratings = new HashSet<RatingResponse>();*/
             Tags = new HashSet<TagResponse>();
             Categories = new HashSet<CategoryResponse>();
         }
@@ -51,13 +51,13 @@ namespace Vouchee.Business.ResponseModels
 
         public Guid? UpdatedBy { get; set; }
 
-        public virtual ICollection<UserResponse> Users { get; set; }
+        /*public virtual ICollection<UserResponse> Users { get; set; }*/
 
-        public virtual ICollection<CommentResponse>? Comments { get; set; }
+        /*public virtual ICollection<CommentResponse>? Comments { get; set; }*/
 
-        public virtual ICollection<DiscountResponse>? Discounts { get; set; }
+       /* public virtual ICollection<DiscountResponse>? Discounts { get; set; }
 
-        public virtual ICollection<RatingResponse>? Ratings { get; set; }
+        public virtual ICollection<RatingResponse>? Ratings { get; set; }*/
 
         public virtual ICollection<TagResponse> Tags { get; set; }
 

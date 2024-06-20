@@ -1,0 +1,44 @@
+[
+  {
+    "PromotionTitle": "Summer Sale",
+    "PromotionDetails": "Get up to 50% off on selected items.",
+    "PromotionCode": "SUMMER50",
+    "PromotionStatus": "Active",
+    "PromotionType": "Discount",
+    "StartDate": "2024-07-01T00:00:00",
+    "ExpiredDate": "2024-07-31T23:59:59",
+    "CreatedDate": "2024-06-20T09:00:00",
+    "CreatedBy": "00000000-0000-0000-0000-000000000001",
+    "UpdatedDate": null,
+    "UpdatedBy": null,
+    "Shops": []
+  },
+  {
+    "PromotionTitle": "Back to School",
+    "PromotionDetails": "Special offers on school supplies and electronics.",
+    "PromotionCode": "SCHOOL20",
+    "PromotionStatus": "Active",
+    "PromotionType": "Discount",
+    "StartDate": "2024-08-01T00:00:00",
+    "ExpiredDate": "2024-08-31T23:59:59",
+    "CreatedDate": "2024-06-21T10:00:00",
+    "CreatedBy": "00000000-0000-0000-0000-000000000002",
+    "UpdatedDate": null,
+    "UpdatedBy": null,
+    "Shops": []
+  },
+  {
+    "PromotionTitle": "Holiday Special",
+    "PromotionDetails": "Exclusive deals for the holiday season.",
+    "PromotionCode": "HOLIDAY25",
+    "PromotionStatus": "Planned",
+    "PromotionType": "Coupon",
+    "StartDate": "2024-12-01T00:00:00",
+    "ExpiredDate": "2024-12-31T23:59:59",
+    "CreatedDate": "2024-06-22T11:00:00",
+    "CreatedBy": "00000000-0000-0000-0000-000000000003",
+    "UpdatedDate": null,
+    "UpdatedBy": null,
+    "Shops": []
+  }
+]

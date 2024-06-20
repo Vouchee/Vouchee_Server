@@ -135,13 +135,16 @@ namespace Vouchee.Business.Services.Impls
             (int, IQueryable<CategoryResponse>) result;
             try
             {
-                var p = _categoryRepo.GetAllAsync().Result;
-                result = _categoryRepo.GetAllAsync().Result
-                    .ProjectTo<CategoryResponse>(_mapper.ConfigurationProvider)
-                    .DynamicFilter(_mapper.Map<CategoryResponse>(request))
-                    .PagingIQueryable(paging.Page, paging.PageSize, StringConstant.LimitPaging, StringConstant.DefaultPaging);
+                var query = _categoryRepo.GetAllAsync().Result;
+                var filtercheck = request.GetType().GetProperties().All(p => p.GetValue(request) != null);
+                var mappedRequest = filtercheck ? _mapper.Map<CategoryResponse>(request) : null;
+                var filteredQuery = mappedRequest != null
+                    ? query.ProjectTo<CategoryResponse>(_mapper.ConfigurationProvider).DynamicFilter(mappedRequest)
+                    : query.ProjectTo<CategoryResponse>(_mapper.ConfigurationProvider);
 
-                if (result.Item2.ToList().Count() == 0)
+                result = filteredQuery.PagingIQueryable(paging.Page, paging.PageSize, StringConstant.LimitPaging, StringConstant.DefaultPaging);
+
+                if (!result.Item2.Any())
                 {
                     return new DynamicModelResponse.DynamicModelsResponse<CategoryResponse>()
                     {
@@ -158,8 +161,10 @@ namespace Vouchee.Business.Services.Impls
             }
             finally
             {
+                // Assuming this lock is to synchronize access to _categoryRepo, which should be reviewed for thread safety
                 lock (_categoryRepo) ;
             }
+
             return new DynamicModelResponse.DynamicModelsResponse<CategoryResponse>()
             {
                 Metadata = new DynamicModelResponse.PagingMetadata()
@@ -170,6 +175,7 @@ namespace Vouchee.Business.Services.Impls
                 Results = result.Item2.ToList()
             };
         }
+
 
         public async Task<ResponseResult<CategoryResponse>> UpdateCategory(UpdateCategoryRequest request, Guid id)
         {

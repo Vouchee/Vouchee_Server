@@ -1,9 +1,12 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Vouchee.API.AppStarts;
+using Vouchee.Data.Helpers;
 using Vouchee.Data.Models.Entities;
+using Vouchee.Data.Seed;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -52,4 +55,26 @@ app.UseCors();
 
 app.MapControllers();
 
+using var scope = app.Services.CreateScope();
+var services = scope.ServiceProvider;
+try
+{
+    var context = services.GetRequiredService<VoucheeContext>();
+    await context.Database.MigrateAsync();
+    /*await Seed.SeedCategory(context);*/
+    /*await Seed.SeedComment(context);
+    await Seed.SeedDiscount(context);
+    await Seed.SeedImage(context);
+    await Seed.SeedLocation(context);
+    await Seed.SeedNotify(context);*/
+    await Seed.SeedProduct(context);
+    /*await Seed.SeedPromotion(context);
+    await Seed.SeedRating(context);
+    await Seed.SeedShop(context);*/
+}
+catch (Exception ex)
+{
+    var logger = services.GetRequiredService<ILogger<Program>>();
+    logger.LogError(ex, "An error while seeding data");
+}
 app.Run();

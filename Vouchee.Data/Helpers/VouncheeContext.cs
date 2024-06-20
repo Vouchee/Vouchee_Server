@@ -41,13 +41,13 @@ namespace Vouchee.Data.Helpers
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseLazyLoadingProxies();
-                var builder = new ConfigurationBuilder()
-                            .SetBasePath(Directory.GetCurrentDirectory())
-                            .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
-                IConfigurationRoot configuration = builder.Build();
-                optionsBuilder.UseSqlServer(configuration.GetConnectionString("VouncheeDB"));
-                /*optionsBuilder.UseSqlServer("Server=(local);uid=sa;pwd=12345;database=Vouchee;TrustServerCertificate=True");*/
+                /* optionsBuilder.UseLazyLoadingProxies();
+                 var builder = new ConfigurationBuilder()
+                             .SetBasePath(Directory.GetCurrentDirectory())
+                             .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
+                 IConfigurationRoot configuration = builder.Build();
+                 optionsBuilder.UseSqlServer(configuration.GetConnectionString("VouncheeDB"));*/
+                optionsBuilder.UseSqlServer("Server=(local);uid=sa;pwd=12345;database=Vouchee;TrustServerCertificate=True");
             }
         }
 
