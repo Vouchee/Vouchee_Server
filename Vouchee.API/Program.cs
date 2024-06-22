@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using Vouchee.API.AppStarts;
 using Vouchee.Data.Helpers;
 using Vouchee.Data.Models.Entities;
@@ -13,11 +14,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddIdentity<User, Role>(options =>
     {
-        options.Password.RequireDigit = true;
-        options.Password.RequireLowercase = true;
         options.Password.RequiredLength = 6;
-        options.Password.RequireNonAlphanumeric = true;
-        options.Password.RequireUppercase = true;
     })
     .AddEntityFrameworkStores<VoucheeContext>()
     .AddDefaultTokenProviders();    
@@ -47,13 +44,35 @@ builder.Services.AddControllers();
 builder.Services.AddAutoMapper(typeof(MapperConfig).Assembly);
 builder.Services.ConfigDI();
 #region Cors
-builder.Services.AddCors(c =>
-{
-    c.AddPolicy("AllowAnyOrigins", options =>
-        options.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
-});
+
 #endregion
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(option =>
+{
+    option.SwaggerDoc("v1", new OpenApiInfo { Title = "Demo API", Version = "v1" });
+    option.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        In = ParameterLocation.Header,
+        Description = "Please enter a valid token",
+        Name = "Authorization",
+        Type = SecuritySchemeType.Http,
+        BearerFormat = "JWT",
+        Scheme = "Bearer"
+    });
+    option.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type=ReferenceType.SecurityScheme,
+                    Id="Bearer"
+                }
+            },
+            new string[]{}
+        }
+    });
+});
 
 var app = builder.Build();
 
@@ -64,7 +83,12 @@ app.UseAuthorization();
 app.UseSwagger();
 app.UseSwaggerUI();
 
-app.UseCors();
+app.UseCors(builder => builder
+    .AllowAnyHeader()
+    .AllowAnyMethod()
+    .AllowCredentials()
+    .WithOrigins("http://localhost:4200"));
+
 
 app.MapControllers();
 using var scope = app.Services.CreateScope();
