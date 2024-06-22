@@ -12,8 +12,5 @@ public class RegisterDto
     [EmailAddress]
     public required string Email { get; set; }
     [Required]
-    [Phone]
-    public string? PhoneNumber { get; set; }
-    [Required]
     public required string Password { get; set; }
 }
