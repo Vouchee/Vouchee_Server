@@ -84,10 +84,12 @@ app.UseSwagger();
 app.UseSwaggerUI();
 
 app.UseCors(builder => builder
+    .AllowAnyOrigin()
     .AllowAnyHeader()
     .AllowAnyMethod()
     .AllowCredentials()
-    .WithOrigins("http://localhost:4200"));
+    );
+app.UseCors("AllowReactApp");
 
 
 app.MapControllers();
