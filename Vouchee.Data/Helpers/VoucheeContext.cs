@@ -47,6 +47,8 @@ namespace Vouchee.Data.Helpers
 
             optionsBuilder.UseSqlServer("Server=ChiroCare\\CHIROCAREDB;Database=ChiroCare;Trusted_Connection=false;TrustServerCertificate=True;uid=sa;pwd=123qwe!@#;");
             // optionsBuilder.UseSqlServer("Server=localhost;Database=Vouchee;Trusted_Connection=false;user=sa;pwd=123456@Aa;TrustServerCertificate=True");
+            /*optionsBuilder.UseSqlServer("Server=(local);uid=sa;pwd=12345;database=Vouchee;TrustServerCertificate=True");*/
+
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

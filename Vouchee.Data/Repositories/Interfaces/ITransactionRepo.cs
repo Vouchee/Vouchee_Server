@@ -10,5 +10,7 @@ namespace Vouchee.Data.Repositories.Interfaces
 {
     public interface ITransactionRepo : IBaseRepo<Transaction>
     {
+        Task AddfixAsync(Transaction entity);
+        Task UpdatefixAsync(Transaction entity);
     }
 }

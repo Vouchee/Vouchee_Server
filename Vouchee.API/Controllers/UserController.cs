@@ -6,6 +6,8 @@ using Vouchee.Business.RequestModels.Helpers;
 using Vouchee.Business.ResponseModels.Helpers;
 using Vouchee.Business.ResponseModels;
 using Vouchee.Business.Services.Interfaces;
+using Microsoft.AspNetCore.Identity;
+using Vouchee.Data.Models.Entities;
 
 namespace Vouchee.API.Controllers
 {
@@ -15,16 +17,28 @@ namespace Vouchee.API.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserService _service;
+        private readonly UserManager<User> _userManager;
 
-        public UserController(IUserService service)
+        public UserController(IUserService service, UserManager<User> userManager)
         {
             _service = service;
+            _userManager = userManager;
         }
 
         [HttpGet("GetUser/{id}")]
         public async Task<ResponseResult<UserResponse>> GetUser(Guid id)
         {
             return await _service.GetUser(id);
+        }
+     /*   [HttpGet("CheckPass")]
+        public async Task<bool> Checkpass(Guid id, string Pass)
+        {
+            return await _service.IsValidPasswordAsync(id, Pass);
+        }*/
+        [HttpGet("UpdatePass")]
+        public async Task<ResponseResult<UserResponse>> UpdatePass(Guid id, string pass)
+        {
+            return await _service.UpdatePasswordAsync(id, pass);
         }
 
         [HttpGet("GetListUser")]

@@ -15,6 +15,7 @@ using Vouchee.Data.Repositories.Interfaces;
 using Vouchee.Data.Models.Constants;
 using AutoMapper.QueryableExtensions;
 using Vouchee.Business.Helpers;
+using Microsoft.AspNetCore.Identity;
 
 namespace Vouchee.Business.Services.Impls
 {
@@ -23,10 +24,13 @@ namespace Vouchee.Business.Services.Impls
         private readonly IUserRepo _userRepo;
         private readonly IMapper _mapper;
 
-        public UserService(IMapper mapper, IUserRepo userRepo)
+        private readonly UserManager<User> _userManager;
+
+        public UserService(IMapper mapper, IUserRepo userRepo, UserManager<User> userManager)
         {
             _userRepo = userRepo;
             _mapper = mapper;
+            _userManager = userManager;
         }
 
 
@@ -35,7 +39,7 @@ namespace Vouchee.Business.Services.Impls
             try
             {
                 var entity = _mapper.Map<User>(request);
-                await _userRepo.AddAsync(_mapper.Map<User>(request));
+                await _userRepo.AddAsync(_mapper.Map<User>(request), request.UserPassword);
                 await _userRepo.SaveAsync();
             }
             catch (Exception ex)
@@ -102,7 +106,8 @@ namespace Vouchee.Business.Services.Impls
 
             try
             {
-                result = _mapper.Map<UserResponse>(_userRepo.GetByIdAsync(id).Result);
+                var user = await _userRepo.GetByIdAsync(id);
+                result = _mapper.Map<UserResponse>(user);
 
                 if (result == null)
                 {
@@ -135,7 +140,9 @@ namespace Vouchee.Business.Services.Impls
             (int, IQueryable<UserResponse>) result;
             try
             {
-                result = _userRepo.GetAllAsync().Result
+                var users = await _userRepo.GetAllAsync();
+                result = users
+                    .AsQueryable()
                     .ProjectTo<UserResponse>(_mapper.ConfigurationProvider)
                     .DynamicFilter(_mapper.Map<UserResponse>(request))
                     .PagingIQueryable(paging.Page, paging.PageSize, StringConstant.LimitPaging, StringConstant.DefaultPaging);
@@ -209,5 +216,47 @@ namespace Vouchee.Business.Services.Impls
                 Result = true
             };
         }
+        public async Task<ResponseResult<UserResponse>> UpdatePasswordAsync(Guid uId, string pass)
+        {
+            var user = await _userRepo.GetFirstOrDefaultAsync(u => u.Id == uId);
+
+            if (user == null)
+            {
+                return new ResponseResult<UserResponse>()
+                {
+                    Message = StringConstant.UPDATE_INFO_FAILED,
+                    Result = false
+                };
+            }
+
+            // Remove the existing password if it exists
+            var removePasswordResult = await _userRepo.RemovePass(user);
+            if (!removePasswordResult.Succeeded)
+            {
+                return new ResponseResult<UserResponse>()
+                {
+                    Message = StringConstant.DELETE_INFO_SUCCESS,
+                    Result = false
+                };
+            }
+
+            // Add the new password
+            var addPasswordResult = await _userRepo.CreatePass(user, pass);
+            if (!addPasswordResult.Succeeded)
+            {
+                return new ResponseResult<UserResponse>()
+                {
+                    Message = StringConstant.CREATE_INFO_SUCCESS,
+                    Result = false
+                };
+            }
+
+            return new ResponseResult<UserResponse>()
+            {
+                Message = StringConstant.UPDATE_INFO_SUCCESS,
+                Result = true
+            };
+        }
     }
-}
+       
+    }
