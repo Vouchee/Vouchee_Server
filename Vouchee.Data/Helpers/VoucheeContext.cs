@@ -46,6 +46,7 @@ namespace Vouchee.Data.Helpers
         {
 
             // optionsBuilder.UseSqlServer("Server=localhost;Database=Vouchee;Trusted_Connection=false;user=sa;pwd=123456@Aa;TrustServerCertificate=True");
+            optionsBuilder.UseSqlServer("Server=(local);uid=sa;pwd=12345;database=Vouchee;TrustServerCertificate=True");
 
         }
 

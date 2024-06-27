@@ -14,8 +14,7 @@ namespace Vouchee.Data.Models.Entities
 
         public string TransactionDetail { get; set; }
 
-        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
-        public DateTime TransactionDateTime { get; set; } = DateTime.Now;
+        public DateTime? TransactionDateTime { get; set; }
 
         [Required]
         public TransactionType TransactionType { get; set; }

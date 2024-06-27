@@ -1,6 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Text.Json;
@@ -156,37 +158,55 @@ namespace Vouchee.Data.Seed
                 await _context.SaveChangesAsync();
             }
         }
-        public static async Task SeedShop(VoucheeContext _context)
+        public static async Task SeedUser(VoucheeContext _context, UserManager<User> _userManager)
         {
-            if (await _context.Shops.AnyAsync()) return;
 
-            var ShopData = await File.ReadAllTextAsync("../Vouchee.Data/Seed/ShopSeed.json");
-            var jsonOptions = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
-            var Shops = JsonSerializer.Deserialize<List<Shop>>(ShopData, jsonOptions);
-
-            foreach (var Shop in Shops)
-            {
-                Shop.ShopStatus = ShopStatusEnum.Block;
-                await _context.Shops.AddAsync(Shop);
-                await _context.SaveChangesAsync();
-            }
-        }
-        public static async Task SeedUser(VoucheeContext _context)
-        {
-            if (await _context.Users.AnyAsync()) return;
+            if (await _userManager.Users.AnyAsync()) return;
 
             var userData = await File.ReadAllTextAsync("../Vouchee.Data/Seed/UserSeed.json");
             var jsonOptions = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
-            var users = JsonSerializer.Deserialize<List<User>>(userData, jsonOptions);
+            var users = JsonSerializer.Deserialize<List<AddUserDto>>(userData, jsonOptions);
 
             foreach (var user in users)
             {
-                user.UserStatusEnum = UserStatusEnum.Unknown;
-                await _context.Users.AddAsync(user);
+                var appUser = new User
+                {
+                    UserName = user.Username,
+                    Email = user.Email,
+                    PhoneNumber = user.PhoneNumber,
+                    Fullname = user.Fullname,
+                    Id = user.UserId,
+                    Gender = 0,
+                };
+                await _userManager.CreateAsync(appUser, "password");
                 await _context.SaveChangesAsync();
             }
         }
-        public static async Task SeedWallet(VoucheeContext _context)
+        public static async Task SeedShop(VoucheeContext _context, UserManager<User> userManager)
+        {
+            if (await _context.Shops.AnyAsync()) return;
+
+            var shopData = await File.ReadAllTextAsync("../Vouchee.Data/Seed/ShopSeed.json");
+            var jsonOptions = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+            var shops = JsonSerializer.Deserialize<List<Shop>>(shopData, jsonOptions);
+
+            foreach (var shop in shops)
+            {
+                // Create the user if it doesn't exist
+                var user = await userManager.FindByIdAsync(shop.UserId.ToString());
+                if (user == null)
+                {
+                    user = new User { Id = shop.UserId, UserName = shop.UserId.ToString(), Email = shop.UserId.ToString() + "@example.com", Fullname = "J" };
+                    await userManager.CreateAsync(user);
+                }
+
+                shop.User = user;
+                await _context.Shops.AddAsync(shop);
+                await _context.SaveChangesAsync();
+            }
+        }
+
+        public static async Task SeedWallet(VoucheeContext _context, UserManager<User> userManager)
         {
             if (await _context.Wallets.AnyAsync()) return;
 
@@ -196,9 +216,35 @@ namespace Vouchee.Data.Seed
 
             foreach (var wallet in wallets)
             {
+                // Create the user if it doesn't exist
+                var user = await userManager.FindByIdAsync(wallet.UserId.ToString());
+                if (user == null)
+                {
+                    user = new User { Id = wallet.UserId, UserName = wallet.UserId.ToString(), Email = wallet.UserId.ToString() + "@example.com", Fullname = "J"};
+                    await userManager.CreateAsync(user);
+                }
+
+                wallet.User = user;
                 await _context.Wallets.AddAsync(wallet);
                 await _context.SaveChangesAsync();
             }
+        }
+
+        public class AddUserDto
+        {
+            [Required]
+            public required string Fullname { get; set; }
+            [Required]
+            public required string Username { get; set; }
+            [Required]
+            [EmailAddress]
+            public required string Email { get; set; }
+            [Required]
+            [Phone]
+            public string? PhoneNumber { get; set; }
+            public Guid UserId { get; set; }
+/*            [Required]
+            public required string Password { get; set; }*/
         }
     }
 }

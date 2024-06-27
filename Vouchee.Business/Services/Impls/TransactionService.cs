@@ -36,7 +36,8 @@ namespace Vouchee.Business.Services.Impls
             try
             {
                 var entity = _mapper.Map<Transaction>(request);
-                await _transactionRepo.AddAsync(_mapper.Map<Transaction>(request));
+
+                await _transactionRepo.AddfixAsync(entity);
                 await _transactionRepo.SaveAsync();
             }
             catch (Exception ex)
@@ -192,7 +193,7 @@ namespace Vouchee.Business.Services.Impls
 
                 var newTransaction = _mapper.Map<Transaction>(request);
 
-                _transactionRepo.Update(newTransaction);
+                _transactionRepo.UpdatefixAsync(newTransaction);
                 await _transactionRepo.SaveAsync();
             }
             catch (Exception ex)

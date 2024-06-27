@@ -72,11 +72,14 @@ var services = scope.ServiceProvider;
 try
 {
     var context = services.GetRequiredService<VoucheeContext>();
+    var userManager = services.GetRequiredService<UserManager<User>>();
+    /*var walletManager = services.GetRequiredService<UserManager<Wallet>>();*/
     await context.Database.MigrateAsync();
     await Seed.SeedCategory(context);
-    await Seed.SeedUser(context);
-    await Seed.SeedWallet(context);
-    await Seed.SeedShop(context);
+    await Seed.SeedUser(context,userManager);
+    await Seed.SeedShop(context,userManager);
+    await Seed.SeedWallet(context,userManager);
+    
     // await Seed.SeedComment(context);
     // await Seed.SeedDiscount(context);
     // await Seed.SeedImage(context);

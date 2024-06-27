@@ -148,6 +148,7 @@ namespace Vouchee.API.AppStarts
             CreateMap<UserResponse, CreateUserRequest>().ReverseMap();
             CreateMap<UserResponse, UpdateUserRequest>().ReverseMap();
             CreateMap<UserResponse, UserFilter>().ReverseMap();
+            CreateMap<UserRole, RoleResponse>();
             #endregion
 
             #region Wallet
