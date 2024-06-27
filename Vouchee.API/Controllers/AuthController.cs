@@ -56,7 +56,6 @@ public class AuthController : ControllerBase
         {
             UserName = registerDto.Username,
             Email = registerDto.Email,
-            PhoneNumber = registerDto.PhoneNumber,
             Fullname = registerDto.Fullname,
             Gender = 0,
         };
@@ -65,7 +64,7 @@ public class AuthController : ControllerBase
         var creationResult = await _userManager.CreateAsync(appUser, registerDto.Password);
         if (!creationResult.Succeeded)
         {
-            return BadRequest(creationResult.Errors.First());
+            return BadRequest(creationResult.Errors.Select(e => e.Description));
         }
 
         // Attempt to assign the user to the "Customer" role
@@ -74,7 +73,7 @@ public class AuthController : ControllerBase
         {
             // Rollback user creation if role assignment fails
             await _userManager.DeleteAsync(appUser);
-            return StatusCode(500, roleAssignmentResult.Errors);
+            return StatusCode(500, roleAssignmentResult.Errors.Select(e => e.Description));
         }
 
         // Prepare the new account data
@@ -91,7 +90,7 @@ public class AuthController : ControllerBase
         // SetCookiesToken(createdAccount.Token);
 
         // Return success response with the token
-        return Ok($"User created: {createdAccount.Token}");
+        return Ok(createdAccount);
     }
     catch (Exception ex)
     {
