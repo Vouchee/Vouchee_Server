@@ -83,12 +83,6 @@ app.UseAuthorization();
 app.UseSwagger();
 app.UseSwaggerUI();
 
-app.UseCors(builder => builder
-    .AllowAnyOrigin()
-    .AllowAnyHeader()
-    .AllowAnyMethod()
-    .AllowCredentials()
-    );
 app.UseCors("AllowReactApp");
 
 
