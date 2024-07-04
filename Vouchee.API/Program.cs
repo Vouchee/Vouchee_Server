@@ -44,7 +44,15 @@ builder.Services.AddControllers();
 builder.Services.AddAutoMapper(typeof(MapperConfig).Assembly);
 builder.Services.ConfigDI();
 #region Cors
-
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAnyOrigins", policy =>
+    {
+        policy.WithOrigins("http://localhost:3000") 
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
+});
 #endregion
 builder.Services.AddSwaggerGen(option =>
 {
@@ -83,7 +91,7 @@ app.UseAuthorization();
 app.UseSwagger();
 app.UseSwaggerUI();
 
-app.UseCors("AllowReactApp");
+app.UseCors("AllowAnyOrigins");
 
 
 app.MapControllers();
